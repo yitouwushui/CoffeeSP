@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">双百工程数据监控端</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fragment_about_title">关于扶贫</string>
+    <string name="fragment_about_content"> \t\t\t\t项目简介......</string>
+</resources>
