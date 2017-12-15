@@ -8,7 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
- * @author 刘镓旗
  * @date 2017/11/16
  * @description 请求接口
  */
