@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.bt_about:
                 showFragment(aboutFragment);
                 break;
+                default:
         }
     }
 

@@ -23,9 +23,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="扶贫专项咖啡机7月累计销售额" />
+            android:text="扶贫专项咖啡机累计销售额" />
 
         <view
             android:id="@+id/chart1"
@@ -37,9 +38,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
-            android:text="扶贫专项咖啡机7月累计销售额"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="扶贫专项咖啡豆挂牌数据" />
 
         <view
             android:id="@+id/chart2"
@@ -51,9 +53,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="扶贫专项咖啡机7月累计销售额" />
+            android:text="扶贫专项咖啡豆摘牌数据" />
 
         <view
             android:id="@+id/chart3"

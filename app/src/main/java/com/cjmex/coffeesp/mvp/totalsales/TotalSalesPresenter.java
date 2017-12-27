@@ -50,30 +50,32 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
     public void requestFirstChartData(int count, float range) {
 
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-
+        float value1 = 50;
         for (int i = 0; i < count; i++) {
             float mult = range / 2f;
-            float val = (float) (Math.random() * mult) + 50;
-            yVals1.add(new Entry(i, val));
+            float val = (float) (Math.random() * mult) + value1;
+            value1 = val;
+            yVals1.add(new Entry(i, val, i + "月"));
         }
 
         ArrayList<Entry> yVals2 = new ArrayList<Entry>();
-
+        float value2 = 450;
         for (int i = 0; i < count - 1; i++) {
             float mult = range;
-            float val = (float) (Math.random() * mult) + 450;
-            yVals2.add(new Entry(i, val));
-//            if(i == 10) {
-//                yVals2.add(new Entry(i, val + 50));
-//            }
+            float val = (float) (Math.random() * mult) + value2;
+            value2 = val;
+
+            yVals2.add(new Entry(i, val, i + "月"));
+
         }
 
         ArrayList<Entry> yVals3 = new ArrayList<Entry>();
-
+        float value3 = 500;
         for (int i = 0; i < count; i++) {
             float mult = range;
-            float val = (float) (Math.random() * mult) + 500;
-            yVals3.add(new Entry(i, val));
+            float val = (float) (Math.random() * mult) + value3;
+            value3 = val;
+            yVals3.add(new Entry(i, val, i + "月"));
         }
         ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
         datas.add(yVals1);
