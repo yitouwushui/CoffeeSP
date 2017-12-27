@@ -80,5 +80,9 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
         datas.add(yVals2);
         datas.add(yVals3);
         getmMvpView().requestData1(datas);
+        getmMvpView().requestData2(datas);
+        getmMvpView().requestData3(datas);
+
+
     }
 }

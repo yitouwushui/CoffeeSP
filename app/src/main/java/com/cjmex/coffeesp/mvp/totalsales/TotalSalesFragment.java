@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
+import com.cjmex.coffeesp.view.GesturesScrollView;
 import com.cjmex.coffeesp.view.banner.CBViewHolderCreator;
 import com.cjmex.coffeesp.view.banner.ConvenientBanner;
 import com.cjmex.coffeesp.view.banner.Holder;
@@ -78,7 +80,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             // 加载广告界面
             totalSalesPresenter.loadAdvertising();
 
-            totalSalesPresenter.requestFirstChartData(20,10);
+            totalSalesPresenter.requestFirstChartData(20, 10);
         }
         return mView;
     }
@@ -87,13 +89,55 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
      * 初始化图表
      */
     private void init() {
-
+        // chart1
         chart1.setOnChartGestureListener(new ChartListener1());
         chart1.setOnChartValueSelectedListener(new ChartListener1());
+        chart1.setTouch(new LineChart.ITouch() {
+            @Override
+            public void isOnTouch(boolean b) {
+                ((GesturesScrollView) mView).requestDisallowInterceptTouchEvent(b);
+            }
+        });
         chart1.setDrawGridBackground(false);
 
-        // no description text
-        chart1.setDescription(null);
+        chart1.setNoDataText("没有获取到行情数据");
+        // enable touch gestures
+        chart1.setTouchEnabled(true);
+        chart1.setDragEnabled(true);
+        chart1.setScaleEnabled(false);
+        chart1.setScaleYEnabled(false);
+        chart1.setScaleXEnabled(false);
+        // enable scaling and dragging
+        // false x,y轴分开缩放
+        chart1.setPinchZoom(false);
+        chart1.getLegend().setEnabled(false);
+        XAxis xAxis = chart1.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setGranularity(1f);
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+        YAxis leftAxis = chart1.getAxisLeft();
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.setLabelCount(8, false);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawLimitLinesBehindData(false);
+        chart1.getAxisRight().setEnabled(false);
+        chart1.getAxisLeft().setAxisLineColor(getResources().getColor(R.color.colorAccent));
+
+        initChart(chart2);
+
+    }
+
+    /**
+     * 初始化相应的chart
+     * @param chart1
+     */
+    private void initChart(LineChart chart1) {
+        // chart2
+        chart1.setDrawGridBackground(false);
+
         chart1.setNoDataText("没有获取到行情数据");
         // enable touch gestures
         chart1.setTouchEnabled(true);
@@ -120,6 +164,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         chart1.getAxisRight().setEnabled(false);
         chart1.getAxisLeft().setAxisLineColor(getResources().getColor(R.color.colorAccent));
     }
+
 
     @Override
     public void onDestroyView() {
@@ -215,7 +260,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             chart1.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(dataList.get(0), "DataSet 1");
+            set1 = new LineDataSet(dataList.get(0), "扶贫自助咖啡机累计金额");
 
             set1.setColor(Color.RED);
             set1.setHighLightColor(Color.BLUE);
@@ -251,12 +296,67 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     }
 
     @Override
+    public void requestData2(List<ArrayList<Entry>> dataList) {
+        LineDataSet set1, set2, set3;
+        if (chart2.getData() != null &&
+                chart2.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) chart2.getData().getDataSetByIndex(1);
+//            set2 = (LineDataSet) chart1.getData().getDataSetByIndex(1);
+//            set3 = (LineDataSet) chart1.getData().getDataSetByIndex(2);
+            set1.setValues(dataList.get(1));
+//            set2.setValues(dataList.get(1));
+//            set3.setValues(dataList.get(2));
+            chart2.getData().notifyDataChanged();
+            chart2.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(dataList.get(1), "扶贫自助咖啡机累计金额");
+
+            set1.setColor(Color.RED);
+            set1.setHighLightColor(Color.BLUE);
+            set1.enableDashedLine(10f, 0f, 0f);
+            set1.setDrawValues(false);
+            set1.setDrawCircles(false);
+            set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+            set1.enableDashedHighlightLine(10f, 0f, 0f);
+            set1.setLineWidth(1f);
+            set1.setDrawCircleHole(false);
+            set1.setDrawFilled(true);
+            YAxis left = chart2.getAxisLeft();
+            left.setAxisMinimum(set1.getYMin() * 0.9f);
+            left.setAxisMaximum(set1.getYMax() * 1.1f);
+            YAxis right = chart2.getAxisRight();
+            right.setAxisMinimum(set1.getYMin() * 0.9f);
+            right.setAxisMaximum(set1.getYMin() * 1.1f);
+
+
+            //set1.setFillFormatter(new MyFillFormatter(0f));
+            //set1.setDrawHorizontalHighlightIndicator(false);
+            //set1.setVisible(false);
+            //set1.setCircleHoleColor(Color.WHITE);
+
+            // create a data object with the datasets
+            LineData data = new LineData(set1);
+            data.setValueTextColor(Color.BLUE);
+            data.setValueTextSize(9f);
+
+            // set data
+            chart2.setData(data);
+        }
+    }
+
+    @Override
+    public void requestData3(List<ArrayList<Entry>> dataList) {
+
+    }
+
+    @Override
     public void resultFailure(String result) {
 
     }
 
     // 以下为chart图表接口~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    private class ChartListener1 implements OnChartGestureListener, OnChartValueSelectedListener{
+    private class ChartListener1 implements OnChartGestureListener, OnChartValueSelectedListener {
 
         @Override
         public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {

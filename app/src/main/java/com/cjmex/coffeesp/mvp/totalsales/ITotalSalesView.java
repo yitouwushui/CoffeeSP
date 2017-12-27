@@ -19,4 +19,8 @@ public interface ITotalSalesView extends IMvpBaseView {
     void loadAdvertisingSuccess(List<Drawable> result);
 
     void requestData1(List<ArrayList<Entry>> dataList);
+
+    void requestData2(List<ArrayList<Entry>> dataList);
+
+    void requestData3(List<ArrayList<Entry>> dataList);
 }
