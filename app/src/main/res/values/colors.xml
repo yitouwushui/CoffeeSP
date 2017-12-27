@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/colorTitle</color>
-    <color name="colorPrimaryDark">@color/colorTitle</color>
-    <color name="colorAccent">@color/colorMainBlue</color>
+    <color name="colorPrimary">#4178d3</color>
+    <color name="colorPrimaryDark">#2b355c</color>
+    <color name="colorAccent">#FF4178D3</color>
     <color name="colorMainBlue">#4178d3</color>
     <color name="colorTitle">#2b355c</color>
+    <color name="colorMarketLine">#2B345B</color>
+    <color name="colorBlack">#272636</color>
+    <color name="colorBlack333333">#333333</color>
 </resources>

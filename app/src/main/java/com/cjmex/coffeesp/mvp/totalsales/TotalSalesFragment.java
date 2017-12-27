@@ -163,7 +163,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         leftAxis.setDrawZeroLine(false);
         leftAxis.setDrawLimitLinesBehindData(false);
         chart.getAxisRight().setEnabled(false);
-        chart.getAxisLeft().setAxisLineColor(getResources().getColor(R.color.colorAccent));
+        chart.getAxisLeft().setAxisLineColor(getResources().getColor(R.color.colorBlack333333));
     }
 
 
@@ -264,8 +264,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(dataList.get(0), "咖啡机累计销售金额");
-
-            set1.setColor(Color.RED);
+            set1.setColor(getResources().getColor(R.color.colorMainBlue));
             set1.setHighLightColor(Color.BLUE);
             set1.enableDashedLine(10f, 0f, 0f);
             set1.setDrawValues(false);
@@ -277,9 +276,9 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1.setDrawFilled(true);
 
 
-            XAxis xAxis = chart2.getXAxis();
+            XAxis xAxis = chart1.getXAxis();
             xAxis.setLabelCount(list.size());
-            xAxis.setValueFormatter(new TimeAxisValueFormatter(chart2, list));
+            xAxis.setValueFormatter(new TimeAxisValueFormatter(chart1, list));
 
             YAxis left = chart1.getAxisLeft();
             left.setAxisMinimum(set1.getYMin() * 0.9f);
