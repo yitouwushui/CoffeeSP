@@ -44,8 +44,8 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
             saleData.setIcon(resources.getDrawable(R.mipmap.ic_launcher_round));
             saleData.setAddress("浦东南路110号");
             saleData.setName("第" + i + "台");
-            saleData.setContent("当月销售金额");
-            saleData.setContent2("累积销售金额");
+            saleData.setSubsidyMoney("当月销售金额");
+            saleData.setSaleMoney("累积销售金额");
             list.add(saleData);
         }
         getmMvpView().requestData(list);

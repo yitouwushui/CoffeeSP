@@ -1,21 +1,131 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.cjmex.coffeesp.mvp.about.AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/fragment_about_title" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/fragment_about_content" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/fragment_about_title"
+            android:textColor="@color/colorBlack333333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="一、数据来源"
+            android:textColor="@color/colorBlack333333" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="1、来饮科技" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="2、上海自贸区咖啡交易中心挂牌系统" />
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="二、数据内容"
+            android:textColor="@color/colorBlack333333" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:lineSpacingExtra="8dp"
+            android:text="1、（统计所有专项扶贫咖啡机总销售数据）。
+2、其中每杯1元咖农补贴，1元作为报价专项基金，汇总总的用于扶贫资金的总的金额数据（按每台自助咖啡机每笔销售提取2元合并计算）。
+3、参与咖农总数、自助咖啡机（汇总已经绑定的自助咖啡机总数和咖农总数）。
+4、扶贫完成咖啡机数：按照1台提取扶贫资金额达到3600元核算。将完成的数量做个汇总统计。（包括占总自助咖啡机比值）" />
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="三、项目背景"
+            android:textColor="@color/colorBlack333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/fragment_background"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="四、项目总概述"
+            android:textColor="@color/colorBlack333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/fragment_about_description_of_project" />
+    </LinearLayout>
+
+
+</ScrollView>

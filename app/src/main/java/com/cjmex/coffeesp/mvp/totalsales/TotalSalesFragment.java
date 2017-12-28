@@ -2,10 +2,16 @@ package com.cjmex.coffeesp.mvp.totalsales;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,23 +25,36 @@ import com.cjmex.coffeesp.view.TimeAxisValueFormatter;
 import com.cjmex.coffeesp.view.banner.CBViewHolderCreator;
 import com.cjmex.coffeesp.view.banner.ConvenientBanner;
 import com.cjmex.coffeesp.view.banner.Holder;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -55,9 +74,19 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     LineChart chart2;
     @BindView(R.id.chart3)
     LineChart chart3;
+    @BindView(R.id.bar_chart)
+    BarChart barChart;
+//    @BindView(R.id.pie1)
+//    PieChart pie1;
 
     ChartListener1 chartListener = new ChartListener1();
 
+    protected String[] mParties = new String[]{
+            "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+            "Party Y", "Party Z"
+    };
 
     public TotalSalesFragment() {
         // Required empty public constructor
@@ -80,7 +109,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             // 加载广告界面
             totalSalesPresenter.loadAdvertising();
 
-            totalSalesPresenter.requestFirstChartData(20, 10);
+            totalSalesPresenter.requestFirstChartData(4, 10);
         }
         return mView;
     }
@@ -93,20 +122,263 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         chart1.setOnChartGestureListener(new ChartListener1());
         chart1.setOnChartValueSelectedListener(new ChartListener1());
 
-        initChart(chart1);
+        initLineChart(chart1);
 
-        initChart(chart2);
+        initLineChart(chart2);
 
-        initChart(chart3);
+        initLineChart(chart3);
 
+        Description description = new Description();
+        description.setText("其中每杯1元咖农补贴，1元作为报价专项基金");
+        description.setTextColor(getResources().getColor(R.color.colorAccent));
+        description.setTextSize(10);
+        description.setTextAlign(Paint.Align.RIGHT);
+//        LogUtils.d("坐标",chart1.get+" : "+chart1.getLeft());
+//        description.setPosition(0, DensityUtils.dp2px(getContext(), 160));
+        chart1.setDescription(description);
+
+//        initPie(pie1);
+
+        initBarChart();
     }
+
+    private void initBarChart() {
+
+        barChart.getDescription().setEnabled(false);
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        barChart.setMaxVisibleValueCount(40);
+        barChart.setTouchEnabled(true);
+        barChart.setDragEnabled(true);
+        barChart.setScaleEnabled(false);
+        barChart.setScaleYEnabled(false);
+        barChart.setScaleXEnabled(false);
+        // scaling can now only be done on x- and y-axis separately
+        barChart.setPinchZoom(false);
+
+        barChart.setDrawGridBackground(false);
+        barChart.setDrawBarShadow(false);
+
+        barChart.setDrawValueAboveBar(false);
+        barChart.setHighlightFullBarEnabled(false);
+
+        // change the position of the y-labels
+        YAxis leftAxis = barChart.getAxisLeft();
+//        leftAxis.setValueFormatter(new MyAxisValueFormatter());
+        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        barChart.getAxisRight().setEnabled(false);
+
+        XAxis xLabels = barChart.getXAxis();
+        xLabels.setPosition(XAxis.XAxisPosition.TOP);
+
+        // barChart.setDrawXLabels(false);
+        // barChart.setDrawYLabels(false);
+
+        setBarChartData();
+
+        Legend l = barChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setFormSize(8f);
+        l.setFormToTextSpace(4f);
+        l.setXEntrySpace(6f);
+    }
+
+    private void setBarChartData() {
+        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < 12 + 1; i++) {
+            float mult = (100 + 1);
+            float val1 = (float) (Math.random() * mult) + mult / 3;
+            float val2 = (float) (Math.random() * mult) + mult / 3;
+//            float val3 = (float) (Math.random() * mult) + mult / 3;
+
+            yVals1.add(new BarEntry(
+                    i,
+                    new float[]{val1, val2}, "数据"));
+        }
+
+        BarDataSet set1;
+
+        if (barChart.getData() != null &&
+                barChart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) barChart.getData().getDataSetByIndex(0);
+            set1.setValues(yVals1);
+            barChart.getData().notifyDataChanged();
+            barChart.notifyDataSetChanged();
+        } else {
+            set1 = new BarDataSet(yVals1, "咖农建档人数");
+            set1.setDrawIcons(false);
+            set1.setColors(getColors());
+            set1.setStackLabels(new String[]{"已脱贫", "未脱贫"});
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+//            data.setValueFormatter(new MyValueFormatter());
+            data.setValueTextColor(Color.WHITE);
+
+            barChart.setData(data);
+        }
+
+        barChart.setFitBars(true);
+        barChart.invalidate();
+    }
+
+    private int[] getColors() {
+
+        int stacksize = 2;
+
+        // have as many colors as stack-values per entry
+        int[] colors = new int[stacksize];
+
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = ColorTemplate.MATERIAL_COLORS[i];
+        }
+
+        return colors;
+    }
+
+//    private void initPie(PieChart mPieChart) {
+//        mPieChart.setUsePercentValues(true);
+//        mPieChart.getDescription().setEnabled(false);
+//        mPieChart.setExtraOffsets(5, 10, 5, 5);
+//
+//        mPieChart.setDragDecelerationFrictionCoef(0.95f);
+//        mPieChart.setCenterText(generateCenterSpannableText());
+//
+//        mPieChart.setExtraOffsets(20.f, 0.f, 20.f, 0.f);
+//
+//        mPieChart.setDrawHoleEnabled(true);
+//        mPieChart.setHoleColor(Color.WHITE);
+//
+//        mPieChart.setCenterTextColor(Color.GRAY);
+//        mPieChart.setTransparentCircleColor(Color.WHITE);
+//        mPieChart.setTransparentCircleAlpha(110);
+//
+//        mPieChart.setHoleRadius(58f);
+//        mPieChart.setTransparentCircleRadius(61f);
+//
+//        mPieChart.setDrawCenterText(true);
+//
+//        mPieChart.setRotationAngle(0);
+//        // enable rotation of the chart by touch
+//        mPieChart.setRotationEnabled(true);
+//        mPieChart.setHighlightPerTapEnabled(true);
+//
+//        // mPieChart.setUnit(" €");
+//        // mPieChart.setDrawUnitsInChart(true);
+//
+//        // add a selection listener
+//        mPieChart.setOnChartValueSelectedListener(new PieListener());
+//
+//        setPieData(8, 100);
+//
+//        mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+//        // mPieChart.spin(2000, 0, 360);
+//
+//        Legend l = mPieChart.getLegend();
+//        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+//        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+//        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+//        l.setDrawInside(false);
+//        l.setEnabled(false);
+//    }
+//
+//    private void setPieData(int count, float range) {
+//
+//        float mult = range;
+//
+//        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+//
+//        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+//        // the chart.
+//        for (int i = 0; i < count; i++) {
+//            entries.add(new PieEntry((float) (Math.random() * mult) + mult / 5, mParties[i % mParties.length]));
+//        }
+//
+//        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+//        dataSet.setSliceSpace(3f);
+//        dataSet.setSelectionShift(5f);
+//
+//        // add a lot of colors
+//
+//        ArrayList<Integer> colors = new ArrayList<Integer>();
+//
+//        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.JOYFUL_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.COLORFUL_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.LIBERTY_COLORS)
+//            colors.add(c);
+//
+//        for (int c : ColorTemplate.PASTEL_COLORS)
+//            colors.add(c);
+//
+//        colors.add(ColorTemplate.getHoloBlue());
+//
+//        dataSet.setColors(colors);
+//        //dataSet.setSelectionShift(0f);
+//
+//
+//        dataSet.setValueLinePart1OffsetPercentage(80.f);
+//        dataSet.setValueLinePart1Length(0.2f);
+//        dataSet.setValueLinePart2Length(0.4f);
+//        //dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+//        dataSet.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+//
+//        PieData data = new PieData(dataSet);
+//        data.setValueFormatter(new PercentFormatter());
+//        data.setValueTextSize(11f);
+//        data.setValueTextColor(Color.BLACK);
+//        pie1.setData(data);
+//
+//        // undo all highlights
+//        pie1.highlightValues(null);
+//
+//        pie1.invalidate();
+//    }
+//
+//    public class PieListener implements OnChartValueSelectedListener {
+//
+//        @Override
+//        public void onValueSelected(Entry e, Highlight h) {
+//
+//        }
+//
+//        @Override
+//        public void onNothingSelected() {
+//
+//        }
+//    }
+//
+//    private SpannableString generateCenterSpannableText() {
+//
+//        SpannableString s = new SpannableString("咖农建档立卡户数量\n与累计脱贫户占比\n数据来源于 by chang jiang");
+//        s.setSpan(new RelativeSizeSpan(1.1f), 0, 18, 0);
+//        s.setSpan(new StyleSpan(Typeface.NORMAL), 18, s.length() - 15, 0);
+//        s.setSpan(new ForegroundColorSpan(Color.GRAY), 18, s.length() - 15, 0);
+//        s.setSpan(new RelativeSizeSpan(.65f), 18, s.length() - 15, 0);
+//        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 18, s.length(), 0);
+//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 15, s.length(), 0);
+//        return s;
+//    }
 
     /**
      * 初始化相应的chart
      *
      * @param chart
      */
-    private void initChart(LineChart chart) {
+    private void initLineChart(LineChart chart) {
 
         chart.setTouch(new LineChart.ITouch() {
             @Override
@@ -127,11 +399,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         // enable scaling and dragging
         // false x,y轴分开缩放
         chart.setPinchZoom(false);
-//        Description description = new Description();
-//        description.setText("我是一段描述，字体12");
-//        description.setTextColor(getResources().getColor(R.color.colorAccent));
-//        description.setTextSize(12);
-//        description.setPosition(0,);
         chart.setDescription(null);
         // popupWindow
         MarkerViewLine popupWindowLineChart = new MarkerViewLine(getContext(), R.layout.popup_data_view_show);
@@ -140,8 +407,8 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         chart.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                LineChart lineChart = ((LineChart)v);
-                ((MarkerViewLine)lineChart.getMarker()).setEventPosition(
+                LineChart lineChart = ((LineChart) v);
+                ((MarkerViewLine) lineChart.getMarker()).setEventPosition(
                         event.getAction(), event.getX(), event.getY(),
                         lineChart.getWidth(), lineChart.getHeight());
                 return false;
@@ -155,6 +422,8 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         xAxis.setGranularity(1f);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawAxisLine(false);
+        xAxis.setSpaceMax(0.5f);
+        xAxis.setSpaceMin(0.5f);
         xAxis.setAvoidFirstLastClipping(true);
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
@@ -172,18 +441,18 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         super.onDestroyView();
     }
 
-    @OnClick({R.id.chart1, R.id.chart2, R.id.chart3})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.chart1:
-                break;
-            case R.id.chart2:
-                break;
-            case R.id.chart3:
-                break;
-                default:
-        }
-    }
+//    @OnClick({R.id.chart1, R.id.chart2, R.id.chart3})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.chart1:
+//                break;
+//            case R.id.chart2:
+//                break;
+//            case R.id.chart3:
+//                break;
+//            default:
+//        }
+//    }
 
     /**
      * 轮播banner图片holder类
@@ -212,12 +481,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
 
@@ -266,26 +529,10 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1 = new LineDataSet(dataList.get(0), "咖啡机累计销售金额");
             set1.setColor(getResources().getColor(R.color.colorMainBlue));
             set1.setHighLightColor(Color.BLUE);
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setDrawValues(false);
-            set1.setDrawCircles(false);
-            set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
-            set1.setLineWidth(1f);
-            set1.setDrawCircleHole(false);
-            set1.setDrawFilled(true);
 
 
-            XAxis xAxis = chart1.getXAxis();
-            xAxis.setLabelCount(list.size());
-            xAxis.setValueFormatter(new TimeAxisValueFormatter(chart1, list));
 
-            YAxis left = chart1.getAxisLeft();
-            left.setAxisMinimum(set1.getYMin() * 0.9f);
-            left.setAxisMaximum(set1.getYMax() * 1.1f);
-            YAxis right = chart1.getAxisRight();
-            right.setAxisMinimum(set1.getYMin() * 0.9f);
-            right.setAxisMaximum(set1.getYMin() * 1.1f);
+            settingXAndY(list, set1, chart1);
 
 
             //set1.setFillFormatter(new MyFillFormatter(0f));
@@ -322,27 +569,10 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1 = new LineDataSet(list, "咖啡豆挂牌数据");
 
             set1.setColor(Color.RED);
-            set1.setHighLightColor(Color.BLUE);
-            set1.enableDashedLine(10f, 0f, 0f);
-            set1.setDrawValues(false);
-            set1.setDrawCircles(false);
-            set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-            set1.enableDashedHighlightLine(10f, 0f, 0f);
-            set1.setLineWidth(1f);
-            set1.setDrawCircleHole(false);
-            set1.setDrawFilled(true);
+            set1.setHighLightColor(Color.RED);
 
 
-            XAxis xAxis = chart2.getXAxis();
-            xAxis.setLabelCount(list.size());
-            xAxis.setValueFormatter(new TimeAxisValueFormatter(chart2, list));
-
-            YAxis left = chart2.getAxisLeft();
-            left.setAxisMinimum(set1.getYMin() * 0.9f);
-            left.setAxisMaximum(set1.getYMax() * 1.1f);
-            YAxis right = chart2.getAxisRight();
-            right.setAxisMinimum(set1.getYMin() * 0.9f);
-            right.setAxisMaximum(set1.getYMin() * 1.1f);
+            settingXAndY(list, set1, chart2);
 
 
             //set1.setFillFormatter(new MyFillFormatter(0f));
@@ -362,8 +592,73 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 
     @Override
     public void requestData3(List<ArrayList<Entry>> dataList) {
+        ArrayList<Entry> list = dataList.get(2);
+        LineDataSet set1, set2, set3;
+        if (chart3.getData() != null &&
+                chart3.getData().getDataSetCount() > 0) {
+            set1 = (LineDataSet) chart3.getData().getDataSetByIndex(2);
+//            set2 = (LineDataSet) chart1.getData().getDataSetByIndex(1);
+//            set3 = (LineDataSet) chart1.getData().getDataSetByIndex(2);
+            set1.setValues(list);
+//            set2.setValues(dataList.get(1));
+//            set3.setValues(dataList.get(2));
+            chart3.getData().notifyDataChanged();
+            chart3.notifyDataSetChanged();
+        } else {
+            // create a dataset and give it a type
+            set1 = new LineDataSet(list, "咖啡豆摘牌数据");
 
+            set1.setColor(Color.GRAY);
+            set1.setHighLightColor(Color.GRAY);
+
+            settingXAndY(list, set1, chart3);
+
+            //set1.setFillFormatter(new MyFillFormatter(0f));
+            //set1.setDrawHorizontalHighlightIndicator(false);
+            //set1.setVisible(false);
+            //set1.setCircleHoleColor(Color.WHITE);
+
+            // create a data object with the datasets
+            LineData data = new LineData(set1);
+            data.setValueTextColor(Color.BLUE);
+            data.setValueTextSize(9f);
+
+            // set data
+            chart3.setData(data);
+        }
     }
+
+
+    /**
+     * 统一设置x和y轴数据
+     *
+     * @param list
+     * @param set1
+     * @param chart
+     */
+    private void settingXAndY(ArrayList<Entry> list, LineDataSet set1, LineChart chart) {
+        set1.enableDashedLine(10f, 0f, 0f);
+        set1.setDrawValues(false);
+        set1.setDrawCircles(false);
+        set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        set1.enableDashedHighlightLine(10f, 0f, 0f);
+        set1.setLineWidth(1f);
+        set1.setDrawCircleHole(false);
+        set1.setDrawFilled(true);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setLabelCount(12);
+        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setValueFormatter(new TimeAxisValueFormatter(chart, list));
+
+        YAxis left = chart.getAxisLeft();
+        left.setAxisMinimum(set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f);
+        left.setAxisMaximum(set1.getYMax() + (set1.getYMax() - set1.getYMin()) * 0.3f);
+        YAxis right = chart.getAxisRight();
+        right.setAxisMinimum(set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f);
+        right.setAxisMaximum(set1.getYMax() + (set1.getYMax() - set1.getYMin()) * 0.3f);
+    }
+
 
     @Override
     public void resultFailure(String result) {

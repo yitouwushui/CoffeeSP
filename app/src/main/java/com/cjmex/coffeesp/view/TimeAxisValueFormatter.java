@@ -31,13 +31,12 @@ public class TimeAxisValueFormatter implements IAxisValueFormatter {
         } else {
             minuteStr = "";
         }
-        if (chart.getVisibleXRange() > axis.getLabelCount()) {
-            return minute % 6 == 1 ? minuteStr : "";
-        } else if (chart.getVisibleXRange() > axis.getLabelCount() / 2) {
-            return minute % 4 == 3 ? minuteStr : "";
-        } else {
+//        if (chart.getVisibleXRange() > axis.getLabelCount()) {
+//            return minute % 2 == 1 ? minuteStr : "";
+//        } else if (chart.getVisibleXRange() > axis.getLabelCount() / 2) {
+//            return minute % 2 == 1 ? minuteStr : "";
+//    }
             return minuteStr;
-        }
 
     }
 

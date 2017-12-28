@@ -10,9 +10,11 @@ public class SaleData {
 
     private Drawable icon;
     private String name;
-    private String content;
-    private String content2;
+    private String subsidyMoney;
+    private String saleMoney;
     private String address;
+    private int cupOfNumber;
+    private long PriceOfOneCup = 10L;
 
     public String getAddress() {
         return address;
@@ -30,8 +32,8 @@ public class SaleData {
         return name;
     }
 
-    public String getContent() {
-        return content;
+    public String getSubsidyMoney() {
+        return subsidyMoney;
     }
 
     public void setIcon(Drawable icon) {
@@ -42,15 +44,15 @@ public class SaleData {
         this.name = name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setSubsidyMoney(String subsidyMoney) {
+        this.subsidyMoney = subsidyMoney;
     }
 
-    public String getContent2() {
-        return content2;
+    public String getSaleMoney() {
+        return saleMoney;
     }
 
-    public void setContent2(String content2) {
-        this.content2 = content2;
+    public void setSaleMoney(String saleMoney) {
+        this.saleMoney = saleMoney;
     }
 }

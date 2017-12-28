@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
         <view
             android:id="@+id/convenient_banner"
             class="com.cjmex.coffeesp.view.banner.ConvenientBanner"
@@ -20,13 +19,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="扶贫专项咖啡机累计销售额" />
+            android:text="自助咖啡机智能终端累计销售额" />
 
         <view
             android:id="@+id/chart1"
@@ -34,6 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="160dp" />
 
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -41,7 +49,7 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="扶贫专项咖啡豆挂牌数据" />
+            android:text="咖啡生豆挂摘牌累计交易额" />
 
         <view
             android:id="@+id/chart2"
@@ -50,19 +58,55 @@
             android:layout_height="160dp"
             android:layout_marginTop="16dp" />
 
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="扶贫专项咖啡豆摘牌数据" />
+            android:text="咖啡熟豆挂摘牌累计交易额" />
 
         <view
             android:id="@+id/chart3"
             class="com.github.mikephil.charting.charts.LineChart"
             android:layout_width="match_parent"
             android:layout_height="160dp" />
+
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="咖农建档立卡户数量" />
+
+        <!--<view-->
+            <!--android:id="@+id/pie1"-->
+            <!--class="com.github.mikephil.charting.charts.PieChart"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:layout_height="260dp" />-->
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_above="@+id/seekBar1" />
+
+        <View
+            android:background="@color/main_background"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
     </LinearLayout>
 
 

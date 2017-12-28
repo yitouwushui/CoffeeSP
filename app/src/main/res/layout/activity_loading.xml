@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading_activity"
-    android:background="@drawable/loading"
-    tools:context="com.cjmex.coffeesp.LoadingActivity">
+    android:background="@drawable/img_loading"
+    tools:context="com.cjmex.coffeesp.mvp.LoadingActivity">
 
 
     <!--<ImageView-->
         <!--android:id="@+id/img_load"-->
-        <!--android:src="@drawable/loading"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--android:scaleType="fitXY"-->

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="数据统计"
+        android:text="终端数据监控"
         android:textColor="#333333"
         android:textSize="18sp" />
 
@@ -31,15 +31,15 @@
             android:textColorLink="@color/colorAccent"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="地址"
-            android:textColorLink="@color/colorAccent"
-            android:textSize="15sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="地址"-->
+            <!--android:textColorLink="@color/colorAccent"-->
+            <!--android:textSize="15sp" />-->
 
         <TextView
             android:id="@+id/textView3"
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="当月销售金额"
+            android:text="累计补贴金额"
             android:textColorLink="@color/colorAccent"
             android:textSize="15sp" />
 

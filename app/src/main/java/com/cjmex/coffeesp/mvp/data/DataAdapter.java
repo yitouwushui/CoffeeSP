@@ -25,8 +25,8 @@ public class DataAdapter extends CommonAdapter<SaleData> {
 //        holder.setImageDrawable(R.id.img_icon, saleData.getIcon());
         holder.setText(R.id.tv_name, saleData.getName());
         holder.setText(R.id.tv_address, saleData.getAddress());
-        holder.setText(R.id.tv_content, saleData.getContent());
-        holder.setText(R.id.tv_content2, saleData.getContent2());
+        holder.setText(R.id.tv_content, saleData.getSubsidyMoney());
+        holder.setText(R.id.tv_content2, saleData.getSaleMoney());
     }
 
 }

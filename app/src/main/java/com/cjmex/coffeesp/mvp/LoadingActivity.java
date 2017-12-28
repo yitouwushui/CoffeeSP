@@ -1,13 +1,20 @@
-package com.cjmex.coffeesp;
+package com.cjmex.coffeesp.mvp;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.content.res.AppCompatResources;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cjmex.coffeesp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,15 +26,18 @@ public class LoadingActivity extends AppCompatActivity {
     TextView tvTime;
     @BindView(R.id.loading_activity)
     FrameLayout loadingActivity;
+//    @BindView(R.id.img_load)
+//    ImageView imgLoad;
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         ButterKnife.bind(this);
-
-
+//        Resources resources = getResources();
+//        Drawable drawable = resources.getDrawable(R.drawable.img_loading,null);
+//        Drawable drawable = ContextCompat.getDrawable(LoadingActivity.this.getApplicationContext(),R.drawable.img_loading);
+//        imgLoad.setImageDrawable(drawable);
 //        loadingActivity = (FrameLayout) findViewById(R.id.loading_activity);
 
 //        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
