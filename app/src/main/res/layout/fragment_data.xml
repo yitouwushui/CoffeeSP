@@ -7,14 +7,22 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <!--<TextView-->
+        <!--android:id="@+id/title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="终端数据监控"-->
+        <!--android:textColor="#333333"-->
+        <!--android:textSize="18sp" />-->
     <TextView
-        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:background="@color/colorTitle"
         android:gravity="center"
         android:text="终端数据监控"
-        android:textColor="#333333"
-        android:textSize="18sp" />
+        android:textColor="@android:color/white"
+        android:textSize="17sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,41 +33,53 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="机器编号"
+            android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/textView2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:text="地址"-->
-            <!--android:textColorLink="@color/colorAccent"-->
-            <!--android:textSize="15sp" />-->
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="当月销售数量"
+            android:textColor="@color/colorBlack333333"
+            android:textColorLink="@color/colorAccent"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="累计补贴金额"
+            android:text="近3月补贴金额"
+            android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="累积销售金额"
+            android:text="近3月销售金额"
+            android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
-            android:textSize="15sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
     <view

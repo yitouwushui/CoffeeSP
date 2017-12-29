@@ -1,7 +1,6 @@
 package com.cjmex.coffeesp.mvp;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -71,12 +70,21 @@ public class MainActivity extends AppCompatActivity {
     //图标
     Drawable barLineB, barLineG, barDataG, barDataB, barAboutB, barAboutG;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DataOfModel model = DataOfModel.getInstance();
+        model.initOneMoth(2017,8);
+        model.initOneMoth(2017,9);
+        model.initOneMoth(2017,10);
+        model.initOneMoth(2017,11);
+
         init();
+
     }
 
     private void init() {

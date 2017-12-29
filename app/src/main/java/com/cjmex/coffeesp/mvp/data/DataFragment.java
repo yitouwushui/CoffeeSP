@@ -31,8 +31,6 @@ import butterknife.Unbinder;
 public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> implements IDataView {
 
     View mView;
-    @BindView(R.id.title)
-    TextView title;
     @BindView(R.id.recycler)
     RecyclerView recycler;
     Unbinder unbinder;
@@ -110,11 +108,9 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
         super.onDestroyView();
     }
 
-    @OnClick({R.id.title, R.id.recycler})
+    @OnClick({R.id.recycler})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.title:
-                break;
             case R.id.recycler:
                 break;
             default:

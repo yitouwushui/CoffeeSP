@@ -24,9 +24,9 @@ public class DataAdapter extends CommonAdapter<SaleData> {
     protected void convert(ViewHolder holder, SaleData saleData, int position) {
 //        holder.setImageDrawable(R.id.img_icon, saleData.getIcon());
         holder.setText(R.id.tv_name, saleData.getName());
-        holder.setText(R.id.tv_address, saleData.getAddress());
-        holder.setText(R.id.tv_content, saleData.getSubsidyMoney());
-        holder.setText(R.id.tv_content2, saleData.getSaleMoney());
+        holder.setText(R.id.tv_address, saleData.getCupOfNumber() + "杯");
+        holder.setText(R.id.tv_content, saleData.getSubsidyMoney() + "元");
+        holder.setText(R.id.tv_content2, saleData.getSaleMoney() + "元");
     }
 
 }

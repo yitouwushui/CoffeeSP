@@ -8,14 +8,14 @@
     android:background="@android:color/white"
     tools:context="com.cjmex.coffeesp.mvp.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorTitle"
-        android:gravity="center"
-        android:text="云豆入沪精准脱贫实时数据"
-        android:textColor="@android:color/white"
-        android:textSize="17sp" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:background="@color/colorTitle"-->
+        <!--android:gravity="center"-->
+        <!--android:text="云豆入沪精准脱贫实时数据"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="17sp" />-->
 
     <FrameLayout
         android:id="@+id/frameLayout"

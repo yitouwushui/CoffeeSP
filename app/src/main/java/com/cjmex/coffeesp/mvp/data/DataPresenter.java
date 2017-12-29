@@ -1,12 +1,11 @@
 package com.cjmex.coffeesp.mvp.data;
 
 import android.content.Context;
-import android.content.res.Resources;
 
-import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.bean.SaleData;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpPresenter;
 import com.cjmex.coffeesp.uitls.LogUtils;
+import com.cjmex.coffeesp.uitls.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -37,15 +36,19 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
     }
 
     public void requestData() {
-        Resources resources = context.getResources();
         ArrayList<SaleData> list = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        int data = TimeUtils.getCurrentDateOfMonth();
+        for (int i = 1; i < 31; i++) {
             SaleData saleData = new SaleData();
-            saleData.setIcon(resources.getDrawable(R.mipmap.ic_launcher_round));
-            saleData.setAddress("浦东南路110号");
-            saleData.setName("第" + i + "台");
-            saleData.setSubsidyMoney("当月销售金额");
-            saleData.setSaleMoney("累积销售金额");
+
+            if (i < 10) {
+                saleData.setName("YKFM000" + i);
+            } else {
+                saleData.setName("YKFM00" + i);
+            }
+            saleData.setCupOfNumber((int) (Math.random() * 30 * data));
+            saleData.setSaleMoney((  (int) (Math.random() * 30 * 30) + (int) (Math.random() * 30 * 30) ) * saleData.getPriceOfOneCup() + saleData.getSubsidyMoney());
+            saleData.setSubsidyMoney(saleData.getSaleMoney()/10);
             list.add(saleData);
         }
         getmMvpView().requestData(list);

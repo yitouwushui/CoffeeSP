@@ -3,6 +3,7 @@ package com.cjmex.coffeesp.uitls;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by yitouwushui on 2017/4/23.
@@ -26,6 +27,27 @@ public class TimeUtils {
             e.printStackTrace();
         }
         return time;
+    }
+
+
+    /**
+     * 获取当天在月份的天数
+     *
+     * @return
+     */
+    public static int getCurrentDateOfMonth() {
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
+        return c.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取当前月份
+     *
+     * @return
+     */
+    public static int getCurrentMoth() {
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
+        return c.get(Calendar.MONTH);
     }
 
     /**
