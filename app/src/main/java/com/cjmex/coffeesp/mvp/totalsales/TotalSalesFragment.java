@@ -21,6 +21,9 @@ import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
 import com.cjmex.coffeesp.uitls.DensityUtils;
 import com.cjmex.coffeesp.uitls.LogUtils;
+import com.cjmex.coffeesp.uitls.SPUtils;
+import com.cjmex.coffeesp.view.BarAxisValueFormatter;
+import com.cjmex.coffeesp.view.DayAxisValueFormatter;
 import com.cjmex.coffeesp.view.GesturesScrollView;
 import com.cjmex.coffeesp.view.MarkerViewLine;
 import com.cjmex.coffeesp.view.TimeAxisValueFormatter;
@@ -111,7 +114,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             totalSalesPresenter.loadAdvertising();
 
             //请求假数据
-            totalSalesPresenter.requestFirstChartData(4, 10);
+            totalSalesPresenter.requestFirstChartData(4, 10, 9);
 
             //请求
             totalSalesPresenter.requestModelData();
@@ -158,7 +161,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(false);
         barChart.setScaleYEnabled(false);
-        barChart.setScaleXEnabled(false);
+        barChart.setScaleXEnabled(true);
         // scaling can now only be done on x- and y-axis separately
         barChart.setPinchZoom(false);
 
@@ -175,7 +178,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         barChart.getAxisRight().setEnabled(false);
 
         XAxis xLabels = barChart.getXAxis();
-        xLabels.setPosition(XAxis.XAxisPosition.TOP);
+        xLabels.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // barChart.setDrawXLabels(false);
         // barChart.setDrawYLabels(false);
@@ -194,16 +197,21 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 
     private void setBarChartData() {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-
-        for (int i = 0; i < 12 + 1; i++) {
+        String[] citys = {"A市", "B市", "C市", "D市"};
+        int count = 0;
+        for (int i = 0; i < 11 + 1; i++) {
             float mult = (100 + 1);
             float val1 = (float) (Math.random() * mult) + mult / 3;
             float val2 = (float) (Math.random() * mult) + mult / 3;
 //            float val3 = (float) (Math.random() * mult) + mult / 3;
-
-            yVals1.add(new BarEntry(
-                    i,
-                    new float[]{val1, val2}, "数据"));
+            if (i != 0 && i % 4 == count) {
+                yVals1.add(new BarEntry(
+                        i, new float[]{0, 0}, ""));
+                count++;
+            } else {
+                yVals1.add(new BarEntry(
+                        i, new float[]{val1, val2}, citys[(i - count) % 4] + ((i - count) / 4 + 1)));
+            }
         }
 
         BarDataSet set1;
@@ -220,6 +228,11 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1.setColors(getColors());
             set1.setStackLabels(new String[]{"已脱贫", "未脱贫"});
             set1.setValueTextSize(DensityUtils.sp2px(getContext(), 3));
+
+            XAxis xLabels = barChart.getXAxis();
+//            xLabels.setLabelCount(yVals1.size());
+            xLabels.setValueFormatter(new BarAxisValueFormatter(barChart, yVals1));
+//            xLabels.setTextSize(DensityUtils.sp2px(getContext(),4));
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
@@ -441,7 +454,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         chart.getAxisLeft().setAxisLineColor(getResources().getColor(R.color.colorBlack333333));
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -483,12 +495,10 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         return totalSalesPresenter = new TotalSalesPresenter();
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
-
 
     @Override
     public void onDetach() {
@@ -541,7 +551,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 //            leftAxis.setDrawLimitLinesBehindData(false);
 
             // create a dataset and give it a type
-            set1 = new LineDataSet(dataList.get(0), "咖啡机每月售金额");
+            set1 = new LineDataSet(dataList.get(0), "咖啡机每月售金额(元)");
             set1.setColor(getResources().getColor(R.color.colorMainBlue));
             set1.setHighLightColor(Color.BLUE);
             set1.enableDashedLine(10f, 0f, 0f);
@@ -553,7 +563,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1.setDrawCircleHole(false);
             set1.setDrawFilled(true);
 
-            set2 = new LineDataSet(dataList.get(1), "咖啡机累计销售金额");
+            set2 = new LineDataSet(dataList.get(1), "咖啡机累计销售金额(元)");
             set2.setColor(Color.RED);
             set2.setHighLightColor(Color.RED);
             set2.enableDashedLine(10f, 0f, 0f);
@@ -594,34 +604,22 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     @Override
     public void requestData2(List<ArrayList<Entry>> dataList) {
         ArrayList<Entry> list = dataList.get(1);
-        LineDataSet set1, set2, set3;
+        LineDataSet set1;
         if (chart2.getData() != null &&
                 chart2.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) chart2.getData().getDataSetByIndex(1);
-//            set2 = (LineDataSet) chart1.getData().getDataSetByIndex(1);
-//            set3 = (LineDataSet) chart1.getData().getDataSetByIndex(2);
+
             set1.setValues(list);
-//            set2.setValues(dataList.get(1));
-//            set3.setValues(dataList.get(2));
             chart2.getData().notifyDataChanged();
             chart2.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(list, "咖啡豆挂牌数据");
-
             set1.setColor(Color.RED);
             set1.setHighLightColor(Color.RED);
 
-
             settingXAndY(list, set1, chart2);
 
-
-            //set1.setFillFormatter(new MyFillFormatter(0f));
-            //set1.setDrawHorizontalHighlightIndicator(false);
-            //set1.setVisible(false);
-            //set1.setCircleHoleColor(Color.WHITE);
-
-            // create a data object with the datasets
             LineData data = new LineData(set1);
             data.setValueTextColor(Color.BLUE);
             data.setValueTextSize(9f);
@@ -634,32 +632,21 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     @Override
     public void requestData3(List<ArrayList<Entry>> dataList) {
         ArrayList<Entry> list = dataList.get(2);
-        LineDataSet set1, set2, set3;
+        LineDataSet set1;
         if (chart3.getData() != null &&
                 chart3.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) chart3.getData().getDataSetByIndex(2);
-//            set2 = (LineDataSet) chart1.getData().getDataSetByIndex(1);
-//            set3 = (LineDataSet) chart1.getData().getDataSetByIndex(2);
             set1.setValues(list);
-//            set2.setValues(dataList.get(1));
-//            set3.setValues(dataList.get(2));
             chart3.getData().notifyDataChanged();
             chart3.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(list, "咖啡豆摘牌数据");
-
             set1.setColor(Color.GRAY);
             set1.setHighLightColor(Color.GRAY);
 
             settingXAndY(list, set1, chart3);
 
-            //set1.setFillFormatter(new MyFillFormatter(0f));
-            //set1.setDrawHorizontalHighlightIndicator(false);
-            //set1.setVisible(false);
-            //set1.setCircleHoleColor(Color.WHITE);
-
-            // create a data object with the datasets
             LineData data = new LineData(set1);
             data.setValueTextColor(Color.BLUE);
             data.setValueTextSize(9f);
@@ -668,7 +655,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             chart3.setData(data);
         }
     }
-
 
     /**
      * 统一设置x和y轴数据
@@ -699,7 +685,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 //        right.setAxisMinimum(set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f);
 //        right.setAxisMaximum(set1.getYMax() + (set1.getYMax() - set1.getYMin()) * 0.3f);
     }
-
 
     @Override
     public void resultFailure(String result) {

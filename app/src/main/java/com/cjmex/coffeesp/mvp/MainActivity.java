@@ -19,6 +19,8 @@ import com.cjmex.coffeesp.mvp.data.DataFragment;
 import com.cjmex.coffeesp.mvp.totalsales.TotalSalesFragment;
 import com.cjmex.coffeesp.uitls.UIUtils;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,17 +73,16 @@ public class MainActivity extends AppCompatActivity {
     Drawable barLineB, barLineG, barDataG, barDataB, barAboutB, barAboutG;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         DataOfModel model = DataOfModel.getInstance();
-        model.initOneMoth(2017,8);
-        model.initOneMoth(2017,9);
-        model.initOneMoth(2017,10);
-        model.initOneMoth(2017,11);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1 - 4);
+
+        model.initMoth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 4);
 
         init();
 

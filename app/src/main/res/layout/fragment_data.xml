@@ -63,7 +63,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="近3月补贴金额"
+            android:text="近4月补贴金额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
@@ -76,7 +76,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="近3月销售金额"
+            android:text="近4月销售金额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />

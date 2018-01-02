@@ -15,13 +15,21 @@ public class SaleData {
      */
     private long subsidyMoney;
     /**
-     * 销售额度
+     * 当月销售额度
      */
     private long saleMoney;
     /**
-     * 销售数量
+     * 累计销售销售额度
      */
-    private int cupOfNumber;
+    private long allSaleMoney;
+    /**
+     * 当月销售数量
+     */
+    private int currentCup;
+    /**
+     * 当月销售数量
+     */
+    private int allCurrentCup;
     /**
      * 单价(元)
      */
@@ -34,6 +42,14 @@ public class SaleData {
      * 时间long
      */
     private long timeL;
+
+    public int getAllCurrentCup() {
+        return allCurrentCup;
+    }
+
+    public void setAllCurrentCup(int allCurrentCup) {
+        this.allCurrentCup = allCurrentCup;
+    }
 
     public String getTimeStr() {
         return timeStr;
@@ -51,6 +67,13 @@ public class SaleData {
         this.timeL = timeL;
     }
 
+    public long getAllSaleMoney() {
+        return allSaleMoney;
+    }
+
+    public void setAllSaleMoney(long allSaleMoney) {
+        this.allSaleMoney = allSaleMoney;
+    }
 
     public String getName() {
         return name;
@@ -60,35 +83,21 @@ public class SaleData {
         this.name = name;
     }
 
-    public long getSubsidyMoney() {
-        return subsidyMoney;
-    }
-
-    public void setSubsidyMoney(long subsidyMoney) {
-        this.subsidyMoney = subsidyMoney;
-    }
-
-    public long getSaleMoney() {
-        return saleMoney;
-    }
 
     public void setSaleMoney(long saleMoney) {
         this.saleMoney = saleMoney;
     }
 
-    public int getCupOfNumber() {
-        return cupOfNumber;
+    public int getCurrentCup() {
+        return currentCup;
     }
 
-    public void setCupOfNumber(int cupOfNumber) {
-        this.cupOfNumber = cupOfNumber;
+    public void setCurrentCup(int currentCup) {
+        this.currentCup = currentCup;
     }
 
     public long getPriceOfOneCup() {
         return PriceOfOneCup;
     }
 
-    public void setPriceOfOneCup(long priceOfOneCup) {
-        PriceOfOneCup = priceOfOneCup;
-    }
 }

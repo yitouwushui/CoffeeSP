@@ -24,6 +24,11 @@ public class AllSale {
     private Integer month;
 
     /**
+     * 月份
+     */
+    private Integer year;
+
+    /**
      * 销售数量
      */
     private int allCupOfNumber;
@@ -46,6 +51,14 @@ public class AllSale {
      * 当月所有机器销售情况
      */
     private ArrayList<SaleData> saleData;
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 
     public Integer getMonth() {
         return month;

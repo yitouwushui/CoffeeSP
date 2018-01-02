@@ -2,10 +2,11 @@ package com.cjmex.coffeesp.mvp.data;
 
 import android.content.Context;
 
+import com.cjmex.coffeesp.bean.AllSale;
 import com.cjmex.coffeesp.bean.SaleData;
+import com.cjmex.coffeesp.mvp.DataOfModel;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpPresenter;
 import com.cjmex.coffeesp.uitls.LogUtils;
-import com.cjmex.coffeesp.uitls.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -36,21 +37,39 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
     }
 
     public void requestData() {
-        ArrayList<SaleData> list = new ArrayList<>();
-        int data = TimeUtils.getCurrentDateOfMonth();
-        for (int i = 1; i < 31; i++) {
-            SaleData saleData = new SaleData();
-
-            if (i < 10) {
-                saleData.setName("YKFM000" + i);
-            } else {
-                saleData.setName("YKFM00" + i);
+        DataOfModel model = DataOfModel.getInstance();
+        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
+        ArrayList<SaleData> list;
+        int monthNumber = allSaleList.size();
+        if (monthNumber > 0) {
+            int number = allSaleList.get(monthNumber - 1).getSaleData().size();
+            list = allSaleList.get(monthNumber - 1).getSaleData();
+            if (monthNumber > 1) {
+                for (int i = monthNumber - 2; i >= 0; i--) {
+                    for (int j = 0; j < number; j++) {
+                        SaleData saleData = list.get(j);
+                        int before = saleData.getAllCurrentCup() == 0 ? saleData.getCurrentCup() : saleData.getAllCurrentCup();
+                        saleData.setAllCurrentCup(before + allSaleList.get(i).getSaleData().get(j).getCurrentCup());
+                    }
+                }
             }
-            saleData.setCupOfNumber((int) (Math.random() * 30 * data));
-            saleData.setSaleMoney((  (int) (Math.random() * 30 * 30) + (int) (Math.random() * 30 * 30) ) * saleData.getPriceOfOneCup() + saleData.getSubsidyMoney());
-            saleData.setSubsidyMoney(saleData.getSaleMoney()/10);
-            list.add(saleData);
+            getmMvpView().requestData(list);
         }
-        getmMvpView().requestData(list);
+
+
+//        int data = TimeUtils.getCurrentDateOfMonth();
+//        for (int i = 1; i < 31; i++) {
+//            SaleData saleData = new SaleData();
+//
+//            if (i < 10) {
+//                saleData.setName("YKFM000" + i);
+//            } else {
+//                saleData.setName("YKFM00" + i);
+//            }
+//            saleData.setCurrentCup((int) (Math.random() * 30 * data));
+//            saleData.setSaleMoney((  (int) (Math.random() * 30 * 30) + (int) (Math.random() * 30 * 30) ) * saleData.getPriceOfOneCup() + saleData.getSubsidyMoney());
+//            saleData.setSubsidyMoney(saleData.getSaleMoney()/10);
+//            list.add(saleData);
+//        }
     }
 }

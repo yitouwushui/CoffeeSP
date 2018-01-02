@@ -50,7 +50,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
         getmMvpView().loadAdvertisingSuccess(bitmapList);
     }
 
-    public void requestFirstChartData(int count, float range) {
+    public void requestFirstChartData(int count, float range,int start) {
 
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
 //        ArrayList<Entry> yVals4 = new ArrayList<Entry>();
@@ -59,7 +59,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float mult = range / 2f;
             float val = (float) (Math.random() * mult) + value1;
             value1 = val;
-            yVals1.add(new Entry(i, val, (i + 7) + "月"));
+            yVals1.add(new Entry(i, val, (i + start) + "月"));
 //            yVals4.add(new Entry(i,val/10,(i+1)+"月"));
         }
 
@@ -70,7 +70,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float val = (float) (Math.random() * mult) + value2;
             value2 = val;
 
-            yVals2.add(new Entry(i, val, (i + 7) + "月"));
+            yVals2.add(new Entry(i, val, (i + start) + "月"));
 
         }
 
@@ -80,7 +80,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float mult = range;
             float val = (float) (Math.random() * mult) + value3;
             value3 = val;
-            yVals3.add(new Entry(i, val, (i + 7) + "月"));
+            yVals3.add(new Entry(i, val, (i + start) + "月"));
         }
         ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
         datas.add(yVals1);
@@ -94,26 +94,20 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
 
 
     public void requestModelData() {
-        ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        ArrayList<Entry> yVals2 = new ArrayList<Entry>();
         DataOfModel model = DataOfModel.getInstance();
-        HashMap<Integer, AllSale> hm = model.getHashMap();
-        AllSale allSale = hm.get(8);
-        AllSale allSale2 = hm.get(9);
-        AllSale allSale3 = hm.get(10);
-        AllSale allSale4 = hm.get(11);
-        yVals1.add(new Entry(0, allSale.getSaleMoney(), allSale.getMonth() + "月"));
-        yVals1.add(new Entry(1, allSale2.getSaleMoney(), allSale2.getMonth() + "月"));
-        yVals1.add(new Entry(2, allSale3.getSaleMoney(), allSale3.getMonth() + "月"));
-        yVals1.add(new Entry(3, allSale4.getSaleMoney(), allSale4.getMonth() + "月"));
-        long all = allSale.getSaleMoney();
-        yVals2.add(new Entry(0, all, allSale.getMonth() + "月"));
-        yVals2.add(new Entry(1, all += allSale2.getSaleMoney(), allSale2.getMonth() + "月"));
-        yVals2.add(new Entry(2, all += allSale3.getSaleMoney(), allSale3.getMonth() + "月"));
-        yVals2.add(new Entry(3, all + allSale4.getSaleMoney(), allSale4.getMonth() + "月"));
-        datas.add(yVals1);
-        datas.add(yVals2);
+        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
+        ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
+        ArrayList<Entry> yVals1 = new ArrayList<>();
+        ArrayList<Entry> yVals2 = new ArrayList<>();
+        long all = 0L;
+        for (int i = 0; i < allSaleList.size(); i++) {
+            AllSale allSale = allSaleList.get(i);
+            all += allSale.getSaleMoney();
+            yVals1.add(new Entry(i, allSale.getSaleMoney(), allSale.getMonth() + "月"));
+            yVals2.add(new Entry(i, all, allSale.getMonth() + "月"));
+            datas.add(yVals1);
+            datas.add(yVals2);
+        }
         getmMvpView().requestData1(datas);
     }
 }
