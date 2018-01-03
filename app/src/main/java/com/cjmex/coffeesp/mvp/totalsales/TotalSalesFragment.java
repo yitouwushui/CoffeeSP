@@ -1,17 +1,12 @@
 package com.cjmex.coffeesp.mvp.totalsales;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,22 +14,20 @@ import android.view.ViewGroup;
 
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
+import com.cjmex.coffeesp.uitls.Const;
 import com.cjmex.coffeesp.uitls.DensityUtils;
 import com.cjmex.coffeesp.uitls.LogUtils;
-import com.cjmex.coffeesp.uitls.SPUtils;
 import com.cjmex.coffeesp.view.BarAxisValueFormatter;
-import com.cjmex.coffeesp.view.DayAxisValueFormatter;
 import com.cjmex.coffeesp.view.GesturesScrollView;
 import com.cjmex.coffeesp.view.MarkerViewLine;
+import com.cjmex.coffeesp.view.MyValueFormatter;
 import com.cjmex.coffeesp.view.TimeAxisValueFormatter;
+import com.cjmex.coffeesp.view.XYMarkerView;
 import com.cjmex.coffeesp.view.banner.CBViewHolderCreator;
 import com.cjmex.coffeesp.view.banner.ConvenientBanner;
 import com.cjmex.coffeesp.view.banner.Holder;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -44,16 +37,14 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +76,13 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 //    PieChart pie1;
 
 
-//    protected String[] mParties = new String[]{
+    //    protected String[] mParties = new String[]{
 //            "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
 //            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
 //            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
 //            "Party Y", "Party Z"
 //    };
+    Drawable[] citysIcon = new Drawable[5];
 
     public TotalSalesFragment() {
         // Required empty public constructor
@@ -161,7 +153,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(false);
         barChart.setScaleYEnabled(false);
-        barChart.setScaleXEnabled(true);
+        barChart.setScaleXEnabled(false);
         // scaling can now only be done on x- and y-axis separately
         barChart.setPinchZoom(false);
 
@@ -183,6 +175,13 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         // barChart.setDrawXLabels(false);
         // barChart.setDrawYLabels(false);
 
+        Resources resources = getContext().getResources();
+        citysIcon[0] = resources.getDrawable(R.drawable.icon_a);
+        citysIcon[1] = resources.getDrawable(R.drawable.icon_b);
+        citysIcon[2] = resources.getDrawable(R.drawable.icon_c);
+        citysIcon[3] = resources.getDrawable(R.drawable.icon_d);
+        citysIcon[4] = null;
+
         setBarChartData();
 
         Legend l = barChart.getLegend();
@@ -197,20 +196,22 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 
     private void setBarChartData() {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        String[] citys = {"A市", "B市", "C市", "D市"};
         int count = 0;
-        for (int i = 0; i < 11 + 1; i++) {
+        for (int i = 0; i < Const.citys.length * 2 - 1; i++) {
             float mult = (100 + 1);
             float val1 = (float) (Math.random() * mult) + mult / 3;
             float val2 = (float) (Math.random() * mult) + mult / 3;
 //            float val3 = (float) (Math.random() * mult) + mult / 3;
-            if (i != 0 && i % 4 == count) {
+            if (i != 0 && i % (Const.citys.length) == Const.citys.length - 1) {
                 yVals1.add(new BarEntry(
                         i, new float[]{0, 0}, ""));
                 count++;
             } else {
                 yVals1.add(new BarEntry(
-                        i, new float[]{val1, val2}, citys[(i - count) % 4] + ((i - count) / 4 + 1)));
+                        i,
+                        new float[]{val1, val2},
+                        citysIcon[(i) % Const.citys.length],
+                        Const.citys[(i) % Const.citys.length] + (count + 1)));
             }
         }
 
@@ -223,25 +224,34 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             barChart.getData().notifyDataChanged();
             barChart.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "咖农建档人数");
-            set1.setDrawIcons(false);
+            set1 = new BarDataSet(yVals1, "");
+
             set1.setColors(getColors());
             set1.setStackLabels(new String[]{"已脱贫", "未脱贫"});
-            set1.setValueTextSize(DensityUtils.sp2px(getContext(), 3));
+            set1.setValueTextSize(DensityUtils.sp2px(getContext(), 4));
+            set1.setDrawIcons(true);
+            set1.setIconsOffset(new MPPointF(0, 15));
 
+            IAxisValueFormatter xAxisFormatter = new BarAxisValueFormatter(barChart, yVals1);
             XAxis xLabels = barChart.getXAxis();
-//            xLabels.setLabelCount(yVals1.size());
-            xLabels.setValueFormatter(new BarAxisValueFormatter(barChart, yVals1));
-//            xLabels.setTextSize(DensityUtils.sp2px(getContext(),4));
+            xLabels.setLabelCount(yVals1.size());
+            xLabels.setValueFormatter(xAxisFormatter);
+            xLabels.setTextSize(DensityUtils.sp2px(getContext(),6));
+
+            XYMarkerView mv = new XYMarkerView(getContext());
+            mv.setChartView(barChart); // For bounds control
+            barChart.setMarker(mv); // Set the marker to the chart
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
-//            data.setValueFormatter(new MyValueFormatter());
-            data.setValueTextColor(Color.WHITE);
+            data.setValueFormatter(new MyValueFormatter());
+            data.setValueTextColor(Color.BLACK);
 
             barChart.setData(data);
+
+
         }
 
         barChart.setFitBars(true);

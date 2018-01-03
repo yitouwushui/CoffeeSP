@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="咖农建档立卡户数量" />
+            android:text="云南咖农建档立卡数量(户)" />
 
         <!--<view-->
             <!--android:id="@+id/pie1"-->
@@ -109,6 +109,14 @@
             android:id="@+id/bar_chart"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="@android:color/black"
+            android:text="@string/bar_chart_label"/>
 
         <View
             android:background="@color/main_background"

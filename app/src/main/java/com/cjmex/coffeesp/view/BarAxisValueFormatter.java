@@ -1,6 +1,6 @@
 package com.cjmex.coffeesp.view;
 
-import com.cjmex.coffeesp.uitls.LogUtils;
+import com.cjmex.coffeesp.uitls.Const;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarEntry;
@@ -17,9 +17,15 @@ public class BarAxisValueFormatter implements IAxisValueFormatter {
 
     private List<BarEntry> mTime;
 
+    private int length;
+
+    private int middle;
+
     public BarAxisValueFormatter(BarChart chart, List<BarEntry> mTime) {
         this.chart = chart;
         this.mTime = mTime;
+        length = Const.cityName.size();
+        middle = length % 2 == 0 ? length / 2 - 1 : length / 2;
     }
 
     @Override
@@ -30,17 +36,22 @@ public class BarAxisValueFormatter implements IAxisValueFormatter {
         if (minute < mTime.size() && minute >= 0) {
             minuteStr = (String) mTime.get(minute).getData();
         } else {
+            minuteStr = "  ";
+        }
+        if (value % (length + 1) == middle) {
+            minuteStr = minuteStr.substring(1, minuteStr.length()) + " 月";
+        } else {
             minuteStr = "";
         }
-        LogUtils.i("x"+chart.getVisibleXRange()+" : " + "c:" + axis.getLabelCount() );
+//        LogUtils.i("x" + chart.getVisibleXRange() + " : " + "c:" + axis.getLabelCount() + "minute:" + minute);
 //        if (chart.getVisibleXRange() > axis.getLabelCount()) {
-//            return minute % 4 == 3 ? minuteStr + " 月" : "";
+//            return minute % 4 == 3 ? minuteStr : "";
 //        } else if (chart.getVisibleXRange() > axis.getLabelCount() / 2) {
-//            return minute % 3 == 2 ? minuteStr + " 月" : "";
+//            return minute % 3 == 2 ? minuteStr : "";
 //        } else if (chart.getVisibleXRange() > axis.getLabelCount() / 3) {
-//            return minute % 2 == 1 ? minuteStr + " 月" : "";
+//            return minute % 2 == 1 ? minuteStr : "";
 //        } else {
-            return minuteStr;
+        return minuteStr;
 //        }
 
     }

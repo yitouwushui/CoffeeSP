@@ -3,6 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bar_chart_label">注：A[保山]、B-[普洱]、C-[临沧]、D-[文山]</string>
 
     <string name="fragment_about_title">关于扶贫</string>
     <string name="fragment_about_content">项目简介......</string>

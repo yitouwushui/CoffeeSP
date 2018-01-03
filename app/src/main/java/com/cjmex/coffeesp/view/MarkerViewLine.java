@@ -10,6 +10,9 @@ import com.cjmex.coffeesp.R;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.utils.MPPointF;
+
+import java.text.DecimalFormat;
 
 /**
  * Custom implementation of the MarkerView.
@@ -31,6 +34,8 @@ public class MarkerViewLine extends MarkerView {
      * 绘制y
      */
     private int translateY;
+    private DecimalFormat format;
+
 //    private int parentWidth;
 //    private int parentHeight;
 
@@ -40,6 +45,8 @@ public class MarkerViewLine extends MarkerView {
         super(context, layoutResource);
         tv_time_minute = findViewById(R.id.tv_time_minute);
         tv_height_point = findViewById(R.id.tv_height_point);
+        format = new DecimalFormat("###");
+
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
@@ -48,7 +55,8 @@ public class MarkerViewLine extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
 //            tvOpen.setText(formatNumber(e.getY(), 0, true, ','));
         tv_time_minute.setText("时间：" + e.getData());
-        tv_height_point.setText("价格：" + e.getY());
+        tv_height_point.setText("价格：" + e.getY() + "元");
+        super.refreshContent(e, highlight);
     }
 
     /**
@@ -96,7 +104,51 @@ public class MarkerViewLine extends MarkerView {
         canvas.translate(-posx, -posy);
     }
 
-//    @Override
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+    }
+
+    private int measureHeight(int measureSpec) {
+        int result = 0;
+        int mode = MeasureSpec.getMode(measureSpec);
+        int size = MeasureSpec.getSize(measureSpec);
+
+        if (mode == MeasureSpec.EXACTLY) {
+            result = size;
+        } else {
+            result = 200;
+            if (mode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, size);
+            }
+        }
+        return result;
+
+    }
+
+    private int measureWidth(int measureSpec) {
+        int result = 0;
+        int mode = MeasureSpec.getMode(measureSpec);
+        int size = MeasureSpec.getSize(measureSpec);
+
+        if (mode == MeasureSpec.EXACTLY) {
+            result = size;
+        } else {
+            result = 200;//根据自己的需要更改
+            if (mode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, size);
+            }
+        }
+        return result;
+    }
+
+    //    @Override
 //    public int getXOffset(float xpos) {
 //        // this will center the marker-view horizontally
 //        return -(getWidth() / 2);
@@ -108,4 +160,8 @@ public class MarkerViewLine extends MarkerView {
 //        return -getHeight();
 //    }
 
+    @Override
+    public MPPointF getOffset() {
+        return new MPPointF(-(getWidth() / 2), -getHeight());
+    }
 }
