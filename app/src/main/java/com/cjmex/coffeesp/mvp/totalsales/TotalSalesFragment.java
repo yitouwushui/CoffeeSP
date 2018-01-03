@@ -19,8 +19,9 @@ import com.cjmex.coffeesp.uitls.DensityUtils;
 import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.view.BarAxisValueFormatter;
 import com.cjmex.coffeesp.view.GesturesScrollView;
+import com.cjmex.coffeesp.view.LineChartValueFormatter;
 import com.cjmex.coffeesp.view.MarkerViewLine;
-import com.cjmex.coffeesp.view.MyValueFormatter;
+import com.cjmex.coffeesp.view.BarValueFormatter;
 import com.cjmex.coffeesp.view.TimeAxisValueFormatter;
 import com.cjmex.coffeesp.view.XYMarkerView;
 import com.cjmex.coffeesp.view.banner.CBViewHolderCreator;
@@ -197,7 +198,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     private void setBarChartData() {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
         int count = 0;
-        for (int i = 0; i < Const.citys.length * 2 - 1; i++) {
+        for (int i = 0; i < Const.citys.length * 3 - 1; i++) {
             float mult = (100 + 1);
             float val1 = (float) (Math.random() * mult) + mult / 3;
             float val2 = (float) (Math.random() * mult) + mult / 3;
@@ -246,7 +247,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             dataSets.add(set1);
 
             BarData data = new BarData(dataSets);
-            data.setValueFormatter(new MyValueFormatter());
+            data.setValueFormatter(new BarValueFormatter());
             data.setValueTextColor(Color.BLACK);
 
             barChart.setData(data);
@@ -605,6 +606,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             LineData data = new LineData(set1, set2);
             data.setValueTextColor(Color.BLUE);
             data.setValueTextSize(9f);
+            data.setValueFormatter(new LineChartValueFormatter());
 
             // set data
             chart1.setData(data);
@@ -633,6 +635,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             LineData data = new LineData(set1);
             data.setValueTextColor(Color.BLUE);
             data.setValueTextSize(9f);
+            data.setValueFormatter(new LineChartValueFormatter());
 
             // set data
             chart2.setData(data);
@@ -660,6 +663,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             LineData data = new LineData(set1);
             data.setValueTextColor(Color.BLUE);
             data.setValueTextSize(9f);
+            data.setValueFormatter(new LineChartValueFormatter());
 
             // set data
             chart3.setData(data);

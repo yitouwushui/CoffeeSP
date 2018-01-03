@@ -7,12 +7,12 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DecimalFormat;
 
-public class MyValueFormatter implements IValueFormatter
+public class BarValueFormatter implements IValueFormatter
 {
 
     private DecimalFormat mFormat;
     
-    public MyValueFormatter() {
+    public BarValueFormatter() {
         mFormat = new DecimalFormat("###,###,###");
     }
 

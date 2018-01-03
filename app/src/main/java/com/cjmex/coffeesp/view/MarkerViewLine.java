@@ -45,7 +45,7 @@ public class MarkerViewLine extends MarkerView {
         super(context, layoutResource);
         tv_time_minute = findViewById(R.id.tv_time_minute);
         tv_height_point = findViewById(R.id.tv_height_point);
-        format = new DecimalFormat("###");
+        format = new DecimalFormat("###,###,###");
 
     }
 
@@ -55,7 +55,7 @@ public class MarkerViewLine extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
 //            tvOpen.setText(formatNumber(e.getY(), 0, true, ','));
         tv_time_minute.setText("时间：" + e.getData());
-        tv_height_point.setText("价格：" + e.getY() + "元");
+        tv_height_point.setText("价格：" + format.format(e.getY()) + "元");
         super.refreshContent(e, highlight);
     }
 
