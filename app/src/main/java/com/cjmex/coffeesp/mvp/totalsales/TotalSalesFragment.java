@@ -562,7 +562,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 //            leftAxis.setDrawLimitLinesBehindData(false);
 
             // create a dataset and give it a type
-            set1 = new LineDataSet(dataList.get(0), "咖啡机每月售金额(元)");
+            set1 = new LineDataSet(dataList.get(0), "咖啡机每月销售额(元)");
             set1.setColor(getResources().getColor(R.color.colorMainBlue));
             set1.setHighLightColor(Color.BLUE);
             set1.enableDashedLine(10f, 0f, 0f);
@@ -574,7 +574,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1.setDrawCircleHole(false);
             set1.setDrawFilled(true);
 
-            set2 = new LineDataSet(dataList.get(1), "咖啡机累计销售金额(元)");
+            set2 = new LineDataSet(dataList.get(1), "咖啡机累计销售额(元)");
             set2.setColor(Color.RED);
             set2.setHighLightColor(Color.RED);
             set2.enableDashedLine(10f, 0f, 0f);
