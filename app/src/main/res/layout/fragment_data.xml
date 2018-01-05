@@ -8,13 +8,13 @@
     <!-- TODO: Update blank fragment layout -->
 
     <!--<TextView-->
-        <!--android:id="@+id/title"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:text="终端数据监控"-->
-        <!--android:textColor="#333333"-->
-        <!--android:textSize="18sp" />-->
+    <!--android:id="@+id/title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center"-->
+    <!--android:text="终端数据监控"-->
+    <!--android:textColor="#333333"-->
+    <!--android:textSize="18sp" />-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -86,7 +86,8 @@
         android:id="@+id/recycler"
         class="android.support.v7.widget.RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/main_background" />
 
     <!--    <TableLayout
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.BarBuffer;
@@ -106,9 +107,9 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
             final float barWidthHalf = barWidth / 2.0f;
             float x;
 
-            for (int i = 0, count = Math.min((int)(Math.ceil((float)(dataSet.getEntryCount()) * phaseX)), dataSet.getEntryCount());
-                i < count;
-                i++) {
+            for (int i = 0, count = Math.min((int) (Math.ceil((float) (dataSet.getEntryCount()) * phaseX)), dataSet.getEntryCount());
+                 i < count;
+                 i++) {
 
                 BarEntry e = dataSet.getEntryForIndex(i);
 
@@ -270,8 +271,8 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                             Utils.drawImage(
                                     c,
                                     icon,
-                                    (int)px,
-                                    (int)py,
+                                    (int) px,
+                                    (int) py,
                                     icon.getIntrinsicWidth(),
                                     icon.getIntrinsicHeight());
                         }
@@ -286,7 +287,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                     int index = 0;
 
                     while (index < dataSet.getEntryCount() * mAnimator.getPhaseX()) {
-
+                        Log.d("tubiao:", "index:" + index);
                         BarEntry entry = dataSet.getEntryForIndex(index);
 
                         float[] vals = entry.getYVals();
@@ -327,8 +328,8 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                                 Utils.drawImage(
                                         c,
                                         icon,
-                                        (int)px,
-                                        (int)py,
+                                        (int) px,
+                                        (int) py,
                                         icon.getIntrinsicWidth(),
                                         icon.getIntrinsicHeight());
                             }
@@ -362,8 +363,13 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
                             trans.pointValuesToPixel(transformed);
 
+                            // 自定义修改，两个DrawIcons只绘制一个，2018/1/5
+                            float iconsY1 = 0;
+                            // end 2018/1/5
+
                             for (int k = 0; k < transformed.length; k += 2) {
 
+                                Log.d("tubiao", "k:" + k + " ,transformed.length:" + transformed.length);
                                 final float val = vals[k / 2];
                                 final boolean drawBelow =
                                         (val == 0.0f && negY == 0.0f && posY > 0.0f) ||
@@ -391,15 +397,33 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
                                 if (entry.getIcon() != null && dataSet.isDrawIconsEnabled()) {
 
-                                    Drawable icon = entry.getIcon();
+//                                    //源代码
+//                                    Drawable icon = entry.getIcon();
+//                                    Log.d("tubiao", transformed.length + ",x: " + x + ", y:" + y + ", iconsOffset.x:" + iconsOffset.x + ", iconsOffset.y:" + iconsOffset.y);
+//                                    Utils.drawImage(
+//                                            c,
+//                                            icon,
+//                                            (int) (x + iconsOffset.x),
+//                                            (int) (y + iconsOffset.y),
+//                                            icon.getIntrinsicWidth(),
+//                                            icon.getIntrinsicHeight());
+//                                    //上面是源代码
 
-                                    Utils.drawImage(
-                                            c,
-                                            icon,
-                                            (int)(x + iconsOffset.x),
-                                            (int)(y + iconsOffset.y),
-                                            icon.getIntrinsicWidth(),
-                                            icon.getIntrinsicHeight());
+                                    // 自定义修改,2018/1/5  start
+                                    if (transformed.length - k > 2) {
+                                        iconsY1 += y;
+                                    } else {
+                                        Drawable icon = entry.getIcon();
+                                        Log.d("tubiao", transformed.length + ",x: " + x + ", y:" + y + ", iconsOffset.x:" + iconsOffset.x + ", iconsOffset.y:" + iconsOffset.y);
+                                        Utils.drawImage(
+                                                c,
+                                                icon,
+                                                (int) (x + iconsOffset.x),
+                                                (int) ((y + iconsY1) / (transformed.length / 2) + iconsOffset.y),
+                                                icon.getIntrinsicWidth(),
+                                                icon.getIntrinsicHeight());
+                                    }
+                                    // 自定义修改,2018/1/5  end
                                 }
                             }
                         }
@@ -436,14 +460,14 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
             mHighlightPaint.setColor(set.getHighLightColor());
             mHighlightPaint.setAlpha(set.getHighLightAlpha());
 
-            boolean isStack = (high.getStackIndex() >= 0  && e.isStacked()) ? true : false;
+            boolean isStack = (high.getStackIndex() >= 0 && e.isStacked()) ? true : false;
 
             final float y1;
             final float y2;
 
             if (isStack) {
 
-                if(mChart.isHighlightFullBarEnabled()) {
+                if (mChart.isHighlightFullBarEnabled()) {
 
                     y1 = e.getPositiveSum();
                     y2 = -e.getNegativeSum();
@@ -471,6 +495,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     /**
      * Sets the drawing position of the highlight object based on the riven bar-rect.
+     *
      * @param high
      */
     protected void setHighlightDrawPos(Highlight high, RectF bar) {
