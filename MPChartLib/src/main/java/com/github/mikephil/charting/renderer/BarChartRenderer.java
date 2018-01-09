@@ -287,7 +287,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                     int index = 0;
 
                     while (index < dataSet.getEntryCount() * mAnimator.getPhaseX()) {
-                        Log.d("tubiao:", "index:" + index);
+//                        Log.d("tubiao:", "index:" + index);
                         BarEntry entry = dataSet.getEntryForIndex(index);
 
                         float[] vals = entry.getYVals();
@@ -369,7 +369,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
                             for (int k = 0; k < transformed.length; k += 2) {
 
-                                Log.d("tubiao", "k:" + k + " ,transformed.length:" + transformed.length);
+//                                Log.d("tubiao", "k:" + k + " ,transformed.length:" + transformed.length);
                                 final float val = vals[k / 2];
                                 final boolean drawBelow =
                                         (val == 0.0f && negY == 0.0f && posY > 0.0f) ||
@@ -414,7 +414,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                                         iconsY1 += y;
                                     } else {
                                         Drawable icon = entry.getIcon();
-                                        Log.d("tubiao", transformed.length + ",x: " + x + ", y:" + y + ", iconsOffset.x:" + iconsOffset.x + ", iconsOffset.y:" + iconsOffset.y);
+//                                        Log.d("tubiao", transformed.length + ",x: " + x + ", y:" + y + ", iconsOffset.x:" + iconsOffset.x + ", iconsOffset.y:" + iconsOffset.y);
                                         Utils.drawImage(
                                                 c,
                                                 icon,

@@ -39,7 +39,8 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="自助咖啡机智能终端累计销售额" />
+            android:text="自助咖啡机智能终端累计销售额"
+            android:textColor="@color/colorBlack333333" />
 
         <view
             android:id="@+id/chart1"
@@ -58,7 +59,8 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="咖啡生豆挂摘牌累计交易额" />
+            android:text="咖啡生豆挂摘牌累计交易额"
+            android:textColor="@color/colorBlack333333" />
 
         <view
             android:id="@+id/chart2"
@@ -78,7 +80,8 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="咖啡熟豆挂摘牌累计交易额" />
+            android:text="咖啡熟豆挂摘牌累计交易额"
+            android:textColor="@color/colorBlack333333" />
 
         <view
             android:id="@+id/chart3"
@@ -96,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="云南咖农建档立卡数量(户)" />
+            android:text="云南咖农建档立卡数量(户)"
+            android:textColor="@color/colorBlack333333" />
 
         <!--<view-->
             <!--android:id="@+id/pie1"-->
@@ -114,9 +118,9 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:gravity="center"
-            android:textSize="10sp"
-            android:textColor="@android:color/black"
-            android:text="@string/bar_chart_label"/>
+            android:text="@string/bar_chart_label"
+            android:textColor="@color/colorBlack333333"
+            android:textSize="10sp" />
 
         <View
             android:background="@color/main_background"

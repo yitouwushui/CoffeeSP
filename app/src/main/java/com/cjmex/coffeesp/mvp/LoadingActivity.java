@@ -1,20 +1,16 @@
 package com.cjmex.coffeesp.mvp;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.content.res.AppCompatResources;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cjmex.coffeesp.R;
+import com.cjmex.coffeesp.uitls.LogUtils;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +30,9 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         ButterKnife.bind(this);
+        LogUtils.i("生命周期", "---------------------");
+        LogUtils.i("生命周期", "LoadingActivity onCreate");
+
 //        Resources resources = getResources();
 //        Drawable drawable = resources.getDrawable(R.drawable.img_loading,null);
 //        Drawable drawable = ContextCompat.getDrawable(LoadingActivity.this.getApplicationContext(),R.drawable.img_loading);
@@ -48,7 +47,9 @@ public class LoadingActivity extends AppCompatActivity {
 
 //        int versionCode = getPreferences(MODE_PRIVATE).getInt(App.VERSION_CODE, 0);
 //        if (UIUtils.getVersionCode(this) > versionCode) {
+
         handler.post(runnable);
+
 //        getPreferences(MODE_PRIVATE).edit().putInt(App.VERSION_CODE, UIUtils.getVersionCode(this)).commit();
 //        } else {
 //            startMain();
@@ -60,12 +61,7 @@ public class LoadingActivity extends AppCompatActivity {
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            LoadingActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    tvTime.setText(String.valueOf(loadingTime) + "s");
-                }
-            });
+            tvTime.setText(String.valueOf(loadingTime) + "s");
             loadingTime--;
             if (loadingTime == 0) {
                 startMain();
@@ -80,6 +76,8 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
+        LogUtils.i("生命周期", "LoadingActivity onDestroy");
+
     }
 
     /**

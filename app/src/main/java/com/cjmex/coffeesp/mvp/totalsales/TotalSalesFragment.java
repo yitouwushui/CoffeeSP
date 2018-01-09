@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cjmex.coffeesp.R;
+import com.cjmex.coffeesp.mvp.MainActivity;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
 import com.cjmex.coffeesp.uitls.Const;
 import com.cjmex.coffeesp.uitls.DensityUtils;
@@ -45,7 +46,6 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,10 +107,12 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             totalSalesPresenter.loadAdvertising();
 
             //请求假数据
-            totalSalesPresenter.requestFirstChartData(4, 10, 9);
+            totalSalesPresenter.requestFirstChartData(MainActivity.dataSize, 10, MainActivity.startMonth);
 
             //请求
             totalSalesPresenter.requestModelData();
+
+            setBarChartData();
         }
         return mView;
     }
@@ -183,7 +185,6 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         citysIcon[3] = resources.getDrawable(R.drawable.icon_d);
         citysIcon[4] = null;
 
-        setBarChartData();
 
         Legend l = barChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -198,21 +199,32 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
     private void setBarChartData() {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
         int count = 0;
+        float valstart1 = 20;
+        float valstart2 = 100;
         for (int i = 0; i < Const.citys.length * 3 - 1; i++) {
-            float mult = (100 + 1);
+            float mult = (10 + 1);
             float val1 = (float) (Math.random() * mult) + mult / 3;
-            float val2 = (float) (Math.random() * mult) + mult / 3;
+            float val2 = (float) (Math.random() * mult) + mult / 2;
+            valstart1 += val1;
+            valstart2 += val2;
 //            float val3 = (float) (Math.random() * mult) + mult / 3;
             if (i != 0 && i % (Const.citys.length) == Const.citys.length - 1) {
                 yVals1.add(new BarEntry(
                         i, new float[]{0, 0}, ""));
                 count++;
             } else {
+                int start = MainActivity.currentMonth - 3;
+                if (start > 12) {
+                    start -= 12;
+                }
+                if (start <= 0) {
+                    start += 12;
+                }
                 yVals1.add(new BarEntry(
                         i,
-                        new float[]{val1, val2},
+                        new float[]{valstart1, valstart2},
                         citysIcon[(i) % Const.citys.length],
-                        Const.citys[(i) % Const.citys.length] + (count + 1)));
+                        Const.citys[(i) % Const.citys.length] + (count + start)));
             }
         }
 
@@ -231,13 +243,14 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             set1.setStackLabels(new String[]{"已脱贫", "未脱贫"});
             set1.setValueTextSize(DensityUtils.sp2px(getContext(), 4));
             set1.setDrawIcons(true);
-            set1.setIconsOffset(new MPPointF(0, 15));
+//            set1.setIconsOffset(new MPPointF(0, -15));
 
             IAxisValueFormatter xAxisFormatter = new BarAxisValueFormatter(barChart, yVals1);
             XAxis xLabels = barChart.getXAxis();
             xLabels.setLabelCount(yVals1.size());
             xLabels.setValueFormatter(xAxisFormatter);
-            xLabels.setTextSize(DensityUtils.sp2px(getContext(),6));
+
+            xLabels.setTextSize(DensityUtils.sp2px(getContext(), 6));
 
             XYMarkerView mv = new XYMarkerView(getContext());
             mv.setChartView(barChart); // For bounds control

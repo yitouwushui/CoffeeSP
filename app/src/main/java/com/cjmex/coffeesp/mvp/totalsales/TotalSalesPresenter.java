@@ -12,7 +12,6 @@ import com.cjmex.coffeesp.uitls.LogUtils;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
         getmMvpView().loadAdvertisingSuccess(bitmapList);
     }
 
-    public void requestFirstChartData(int count, float range,int start) {
+    public void requestFirstChartData(int count, float range, int start) {
 
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
 //        ArrayList<Entry> yVals4 = new ArrayList<Entry>();
@@ -59,7 +58,11 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float mult = range / 2f;
             float val = (float) (Math.random() * mult) + value1;
             value1 = val;
-            yVals1.add(new Entry(i, val, (i + start) + "月"));
+            if (i + start <= 12) {
+                yVals1.add(new Entry(i, val, (i + start) + "月"));
+            } else {
+                yVals1.add(new Entry(i, val, (i + start - 12) + "月"));
+            }
 //            yVals4.add(new Entry(i,val/10,(i+1)+"月"));
         }
 
@@ -69,8 +72,11 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float mult = range;
             float val = (float) (Math.random() * mult) + value2;
             value2 = val;
-
-            yVals2.add(new Entry(i, val, (i + start) + "月"));
+            if (i + start <= 12) {
+                yVals2.add(new Entry(i, val, (i + start) + "月"));
+            } else {
+                yVals2.add(new Entry(i, val, (i + start - 12) + "月"));
+            }
 
         }
 
@@ -80,7 +86,11 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
             float mult = range;
             float val = (float) (Math.random() * mult) + value3;
             value3 = val;
-            yVals3.add(new Entry(i, val, (i + start) + "月"));
+            if (i + start <= 12) {
+                yVals3.add(new Entry(i, val, (i + start) + "月"));
+            } else {
+                yVals3.add(new Entry(i, val, (i + start - 12) + "月"));
+            }
         }
         ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
         datas.add(yVals1);

@@ -17,6 +17,7 @@ import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.mvp.about.AboutFragment;
 import com.cjmex.coffeesp.mvp.data.DataFragment;
 import com.cjmex.coffeesp.mvp.totalsales.TotalSalesFragment;
+import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.uitls.UIUtils;
 
 import java.util.Calendar;
@@ -71,18 +72,22 @@ public class MainActivity extends AppCompatActivity {
     int colorB, colorG;
     //图标
     Drawable barLineB, barLineG, barDataG, barDataB, barAboutB, barAboutG;
-
+    public static final int dataSize = 6;
+    public static int currentMonth = 0;
+    public static int startMonth = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataOfModel model = DataOfModel.getInstance();
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, 1 - 4);
+        currentMonth = calendar.get(Calendar.MONTH) + 1;
+        calendar.add(Calendar.MONTH, 1 - dataSize);
+        startMonth = calendar.get(Calendar.MONTH) + 1;
+        DataOfModel.init(calendar.get(Calendar.YEAR), startMonth, dataSize);
 
-        model.initMoth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 4);
+        LogUtils.i("生命周期", "MainActivity onCreate");
 
         init();
 
@@ -116,9 +121,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void finish() {
+//        DataOfModel.getInstance().clear();
+        super.finish();
+    }
+
+    @Override
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
+        LogUtils.i("生命周期", "MainActivity onDestroy");
     }
 
     @OnClick({R.id.bt_home, R.id.bt_data, R.id.bt_about})

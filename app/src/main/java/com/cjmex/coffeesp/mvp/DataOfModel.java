@@ -2,6 +2,7 @@ package com.cjmex.coffeesp.mvp;
 
 import com.cjmex.coffeesp.bean.AllSale;
 import com.cjmex.coffeesp.bean.SaleData;
+import com.cjmex.coffeesp.uitls.LogUtils;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -16,21 +17,32 @@ public class DataOfModel {
 
     private static volatile DataOfModel instance;
 
-    public static DataOfModel getInstance() {
+    public static DataOfModel init(int startYear, int startMonth, int count) {
         if (instance == null) {
             synchronized (DataOfModel.class) {
                 if (instance == null) {
-                    instance = new DataOfModel();
+                    instance = new DataOfModel(startYear, startMonth, count);
                 }
             }
         }
         return instance;
     }
 
+    public static DataOfModel getInstance() {
+        return init(2018, 0, 0);
+    }
+
+    private DataOfModel(int startYear, int startMonth, int count) {
+        initMoth(startYear, startMonth, count);
+    }
+
     private List<AllSale> allSaleList = new ArrayList<>();
 
-
-    public List<AllSale> initMoth(int startYear, int startMonth, int count) {
+    private void initMoth(int startYear, int startMonth, int count) {
+        if (startYear < 2017 || startMonth < 1) {
+            return;
+        }
+        LogUtils.i("生命周期", "数据长度" + allSaleList.size());
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, startYear);
         cal.set(Calendar.MONTH, startMonth - 1);
@@ -43,7 +55,12 @@ public class DataOfModel {
             cal.add(Calendar.MONTH, 1);
             allSaleList.add(allSale);
         }
-        return allSaleList;
+    }
+
+    public void clear() {
+        if (allSaleList != null && allSaleList.size() != 0) {
+            allSaleList.clear();
+        }
     }
 
     private AllSale getAllSale(Calendar cal) {
