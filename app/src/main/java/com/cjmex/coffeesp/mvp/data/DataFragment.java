@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.bean.SaleData;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
+import com.cjmex.coffeesp.view.AlertDialog;
+import com.cjmex.coffeesp.view.absrecyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 
@@ -61,6 +63,7 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
         recycler.setLayoutManager(new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false
         ));
+
     }
 
     @Override
@@ -82,7 +85,7 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (!hidden){
+        if (!hidden) {
 //            if (recycler != null && recycler.getAdapter() != null){
 //
 //                recycler.getAdapter().notifyDataSetChanged();
@@ -121,6 +124,18 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     public void requestData(ArrayList<SaleData> list) {
         if (recycler.getAdapter() == null) {
             recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
+            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    AlertDialog alertDialog = new AlertDialog(getContext());
+                    alertDialog.show();
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
         }
         recycler.getAdapter().notifyDataSetChanged();
     }

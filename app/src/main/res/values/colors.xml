@@ -12,4 +12,8 @@
 
     <color name="color_bar_gray">#959595</color>
     <color name="color_bar_blue">#4178d3</color>
+    <color name="float_transparent">#00000000</color>
+    <color name="color_status_bar_2c85e3">#2c85e3</color>
+    <color name="color_blue_1ea7e8">#1ea7e8</color>
+
 </resources>
