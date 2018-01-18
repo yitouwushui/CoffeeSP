@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cjmex.coffeesp.R;
+import com.cjmex.coffeesp.bean.HouseholdFamily;
 import com.cjmex.coffeesp.bean.SaleData;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
 import com.cjmex.coffeesp.view.AlertDialog;
@@ -54,7 +55,7 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
             mView = inflater.inflate(R.layout.fragment_data, container, false);
             unbinder = ButterKnife.bind(this, mView);
             init();
-            dataPresenter.requestData();
+            dataPresenter.requestData2();
         }
         return mView;
     }
@@ -121,21 +122,21 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     }
 
     @Override
-    public void requestData(ArrayList<SaleData> list) {
+    public void requestData(ArrayList<HouseholdFamily> list) {
         if (recycler.getAdapter() == null) {
             recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
-            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    AlertDialog alertDialog = new AlertDialog(getContext());
-                    alertDialog.show();
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
+//            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    AlertDialog alertDialog = new AlertDialog(getContext());
+//                    alertDialog.show();
+//                }
+//
+//                @Override
+//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    return false;
+//                }
+//            });
         }
         recycler.getAdapter().notifyDataSetChanged();
     }

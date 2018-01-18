@@ -29,9 +29,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:background="@color/main_background"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:background="@color/main_background"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,18 +41,20 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="自助咖啡机智能终端累计销售额"
-            android:textColor="@color/colorBlack333333" />
+            android:textColor="@color/colorBlack333333"
+            android:visibility="gone" />
 
         <view
             android:id="@+id/chart1"
             class="com.github.mikephil.charting.charts.LineChart"
             android:layout_width="match_parent"
-            android:layout_height="160dp" />
+            android:layout_height="160dp"
+            android:visibility="gone" />
 
         <View
-            android:background="@color/main_background"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:background="@color/main_background" />
 
         <TextView
             android:layout_width="match_parent"
@@ -59,7 +62,7 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="咖啡生豆挂摘牌累计交易额"
+            android:text="咖啡生豆挂牌累计交易额"
             android:textColor="@color/colorBlack333333" />
 
         <view
@@ -70,9 +73,9 @@
             android:layout_marginTop="16dp" />
 
         <View
-            android:background="@color/main_background"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:background="@color/main_background" />
 
         <TextView
             android:layout_width="match_parent"
@@ -80,7 +83,7 @@
             android:layout_marginBottom="-8dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="咖啡熟豆挂摘牌累计交易额"
+            android:text="咖啡生豆摘牌累计交易额"
             android:textColor="@color/colorBlack333333" />
 
         <view
@@ -90,9 +93,9 @@
             android:layout_height="160dp" />
 
         <View
-            android:background="@color/main_background"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:background="@color/main_background" />
 
         <TextView
             android:layout_width="match_parent"
@@ -103,11 +106,11 @@
             android:textColor="@color/colorBlack333333" />
 
         <!--<view-->
-            <!--android:id="@+id/pie1"-->
-            <!--class="com.github.mikephil.charting.charts.PieChart"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_marginBottom="16dp"-->
-            <!--android:layout_height="260dp" />-->
+        <!--android:id="@+id/pie1"-->
+        <!--class="com.github.mikephil.charting.charts.PieChart"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_height="260dp" />-->
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart"
@@ -123,9 +126,9 @@
             android:textSize="10sp" />
 
         <View
-            android:background="@color/main_background"
             android:layout_width="match_parent"
-            android:layout_height="8dp"/>
+            android:layout_height="8dp"
+            android:background="@color/main_background" />
 
     </LinearLayout>
 

@@ -81,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Calendar calendar = Calendar.getInstance();
-        currentMonth = calendar.get(Calendar.MONTH) + 1;
-        calendar.add(Calendar.MONTH, 1 - dataSize);
-        startMonth = calendar.get(Calendar.MONTH) + 1;
-        DataOfModel.init(calendar.get(Calendar.YEAR), startMonth, dataSize);
+//        Calendar calendar = Calendar.getInstance();
+//        currentMonth = calendar.get(Calendar.MONTH) + 1;
+//        calendar.add(Calendar.MONTH, 1 - dataSize);
+//        startMonth = calendar.get(Calendar.MONTH) + 1;
+//        DataOfModel.init(calendar.get(Calendar.YEAR), startMonth, dataSize);
 
         LogUtils.i("生命周期", "MainActivity onCreate");
 

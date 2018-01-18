@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.bean.AllSale;
+import com.cjmex.coffeesp.bean.Plate;
 import com.cjmex.coffeesp.mvp.DataOfModel;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpPresenter;
 import com.cjmex.coffeesp.uitls.LogUtils;
@@ -14,6 +15,10 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * @author ding
  * @date 2017/12/8
@@ -21,8 +26,10 @@ import java.util.List;
 public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
 
     private Context context;
+    private TotalSalesRequestMode mTotalSalesRequestMode;
 
     public TotalSalesPresenter() {
+        this.mTotalSalesRequestMode = new TotalSalesRequestMode();
         LogUtils.i("TotalSalesPresenter:", "new Object");
     }
 
@@ -102,6 +109,35 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
 
     }
 
+    public void requersData() {
+        mTotalSalesRequestMode.request(new Callback<List<Plate>>() {
+            @Override
+            public void onResponse(Call<List<Plate>> call, Response<List<Plate>> response) {
+                List<Plate> list = response.body();
+                if (list != null && !list.isEmpty()) {
+                    ArrayList<Entry> yVals1 = new ArrayList<>();
+                    ArrayList<Entry> yVals2 = new ArrayList<>();
+                    ArrayList<Entry> yVals3 = new ArrayList<>();
+                    for (int i = list.size() - 1, n = 0; i >= 0; i--, n++) {
+                        Plate plate = list.get(i);
+                        yVals2.add(new Entry(n, plate.getSUnitAmount(), plate.getUnitDate()));
+                        yVals3.add(new Entry(n, plate.getBUnitAmount(), plate.getUnitDate()));
+                    }
+                    ArrayList<ArrayList<Entry>> datas = new ArrayList<>();
+                    datas.add(yVals1);
+                    datas.add(yVals2);
+                    datas.add(yVals3);
+                    getmMvpView().requestData2(datas);
+                    getmMvpView().requestData3(datas);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Plate>> call, Throwable t) {
+                LogUtils.d(t.toString());
+            }
+        });
+    }
 
     public void requestModelData() {
         DataOfModel model = DataOfModel.getInstance();

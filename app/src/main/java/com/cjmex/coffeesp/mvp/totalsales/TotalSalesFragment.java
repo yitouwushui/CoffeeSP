@@ -107,10 +107,11 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             totalSalesPresenter.loadAdvertising();
 
             //请求假数据
-            totalSalesPresenter.requestFirstChartData(MainActivity.dataSize, 10, MainActivity.startMonth);
-
-            //请求
-            totalSalesPresenter.requestModelData();
+//            totalSalesPresenter.requestFirstChartData(MainActivity.dataSize, 10, MainActivity.startMonth);
+            // 真数据
+            totalSalesPresenter.requersData();
+//            //请求
+//            totalSalesPresenter.requestModelData();
 
             setBarChartData();
         }
@@ -606,7 +607,11 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             xAxis.setValueFormatter(new TimeAxisValueFormatter(chart1, list));
 
             YAxis left = chart1.getAxisLeft();
-            left.setAxisMinimum(set2.getYMin() - (set2.getYMax() - set2.getYMin()) * 0.3f);
+            float min = set2.getYMin() - (set2.getYMax() - set2.getYMin()) * 0.3f;
+            if (min < 0) {
+                min = 0;
+            }
+            left.setAxisMinimum(min);
 
             left.setAxisMaximum(set2.getYMax() + (set2.getYMax() - set2.getYMin()) * 0.3f);
 //            left.setAxisMaximum(set1.getYMax() + (set1.getYMax() - set1.getYMin()) * 0.3f);
@@ -639,7 +644,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             chart2.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(list, "咖啡豆挂牌数据");
+            set1 = new LineDataSet(list, "咖啡豆销售金额(元)");
             set1.setColor(Color.RED);
             set1.setHighLightColor(Color.RED);
 
@@ -652,6 +657,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
 
             // set data
             chart2.setData(data);
+            chart2.notifyDataSetChanged();
         }
     }
 
@@ -667,7 +673,7 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
             chart3.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(list, "咖啡豆摘牌数据");
+            set1 = new LineDataSet(list, "咖啡豆购买金额(元)");
             set1.setColor(Color.GRAY);
             set1.setHighLightColor(Color.GRAY);
 
@@ -706,7 +712,11 @@ public class TotalSalesFragment extends AbstractMvpFragment<ITotalSalesView, Tot
         xAxis.setValueFormatter(new TimeAxisValueFormatter(chart, list));
 
         YAxis left = chart.getAxisLeft();
-        left.setAxisMinimum(set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f);
+        float min = set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f;
+        if (min < 0) {
+            min = 0;
+        }
+        left.setAxisMinimum(min);
         left.setAxisMaximum(set1.getYMax() + (set1.getYMax() - set1.getYMin()) * 0.3f);
 //        YAxis right = chart.getAxisRight();
 //        right.setAxisMinimum(set1.getYMin() - (set1.getYMax() - set1.getYMin()) * 0.3f);

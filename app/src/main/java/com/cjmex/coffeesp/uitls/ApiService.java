@@ -1,11 +1,12 @@
 package com.cjmex.coffeesp.uitls;
 
 
-import com.cjmex.coffeesp.bean.User;
+import com.cjmex.coffeesp.bean.Plate;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * @date 2017/11/16
@@ -15,9 +16,9 @@ public interface ApiService {
 
     /**
      * 请求天气接口
-     * @param cityId 城市
+     *
      * @return Call
      */
-    @GET("data/cityinfo/{cityId}.html")
-    Call<User> requestWeather(@Path("cityId") String cityId);
+    @GET("coffeeSP-web/order/sum/list")
+    Call<List<Plate>> requestData();
 }

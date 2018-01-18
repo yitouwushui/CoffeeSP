@@ -1,5 +1,6 @@
 package com.cjmex.coffeesp.mvp.data;
 
+import com.cjmex.coffeesp.bean.HouseholdFamily;
 import com.cjmex.coffeesp.bean.SaleData;
 import com.cjmex.coffeesp.mvp.base.IMvpBaseView;
 
@@ -11,5 +12,5 @@ import java.util.ArrayList;
 
 public interface IDataView extends IMvpBaseView {
 
-    void requestData(ArrayList<SaleData> list);
+    void requestData(ArrayList<HouseholdFamily> list);
 }

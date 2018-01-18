@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cjmex.coffeesp">
 
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".mvp.CoffeeApplication"
         android:allowBackup="true"

@@ -20,7 +20,7 @@
         android:layout_height="48dp"
         android:background="@color/colorTitle"
         android:gravity="center"
-        android:text="终端数据监控"
+        android:text="农户相关信息"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
@@ -31,26 +31,22 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="机器编号"
+            android:text="编号"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="当月销售数量"
+            android:text="户主名字"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
@@ -60,23 +56,21 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:gravity="center"
-            android:text="近6月补贴金额"
+            android:text="户主身份证"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="近6月销售金额"
+            android:text="家庭人口"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />

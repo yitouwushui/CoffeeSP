@@ -1,6 +1,8 @@
 package com.cjmex.coffeesp.uitls;
 
 
+import com.google.gson.Gson;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -25,8 +27,11 @@ public class RetrofitUtil {
     private OkHttpClient mOkHttpClient;
     private Retrofit mRetrofit;
     private ApiService mApiService;
+    private Gson gson;
 
     private volatile static RetrofitUtil mInstance;
+
+    public static final String BASE_URL = "http://192.168.2.206:8080/";//测试地址
 
     /**
      * 构造方法
@@ -41,9 +46,10 @@ public class RetrofitUtil {
             builder.connectTimeout(DEFAULT_MILLISECONDS, TimeUnit.SECONDS);
             mOkHttpClient = builder.build();
         }
+        gson = new Gson();
         mRetrofit = new Retrofit.Builder()
                 .client(mOkHttpClient)
-                .baseUrl(Const.APP_HOST)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -74,6 +80,14 @@ public class RetrofitUtil {
      */
     public static RetrofitUtil getInstance() {
         return initClient(null);
+    }
+
+    public Retrofit getRetrofit() {
+        return mRetrofit;
+    }
+
+    public Gson getGson() {
+        return gson;
     }
 
 }
