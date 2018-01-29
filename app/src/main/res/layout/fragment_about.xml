@@ -51,14 +51,14 @@
             android:lineSpacingExtra="8dp"
             android:text="1、云南农垦集团(建档立卡)" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:lineSpacingExtra="8dp"
-            android:text="2、来饮科技自助咖啡机终端 " />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:layout_marginRight="16dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:lineSpacingExtra="8dp"-->
+            <!--android:text="2、来饮科技自助咖啡机终端 " />-->
 
         <TextView
             android:id="@+id/textView6"
@@ -68,7 +68,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:lineSpacingExtra="8dp"
-            android:text="3、上海自贸区咖啡交易中心挂牌系统" />
+            android:text="2、上海自贸区咖啡交易中心挂牌系统" />
         <View
             android:background="@color/main_background"
             android:layout_width="match_parent"

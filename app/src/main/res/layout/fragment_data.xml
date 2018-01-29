@@ -24,6 +24,58 @@
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="32dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="编号"-->
+            <!--android:textColor="@color/colorBlack333333"-->
+            <!--android:textColorLink="@color/colorAccent"-->
+            <!--android:textSize="11sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView2"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="户主名字"-->
+            <!--android:textColor="@color/colorBlack333333"-->
+            <!--android:textColorLink="@color/colorAccent"-->
+            <!--android:textSize="11sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_weight="4"-->
+            <!--android:gravity="center"-->
+            <!--android:text="户主身份证"-->
+            <!--android:textColor="@color/colorBlack333333"-->
+            <!--android:textColorLink="@color/colorAccent"-->
+            <!--android:textSize="11sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView4"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="家庭人口"-->
+            <!--android:textColor="@color/colorBlack333333"-->
+            <!--android:textColorLink="@color/colorAccent"-->
+            <!--android:textSize="11sp" />-->
+    <!--</LinearLayout>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="32dp"
@@ -31,7 +83,7 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="40dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:gravity="center"
@@ -42,11 +94,11 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="户主名字"
+            android:text="销售数量"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
@@ -56,9 +108,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="户主身份证"
+            android:text="扶贫金额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />
@@ -70,7 +122,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
-            android:text="家庭人口"
+            android:text="总销售额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="11sp" />

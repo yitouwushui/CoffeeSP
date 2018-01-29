@@ -45,26 +45,26 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
         super.detachMvpView();
     }
 
-//    public void requestData() {
-//        DataOfModel model = DataOfModel.getInstance();
-//        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
-//        ArrayList<SaleData> list = new ArrayList<>();
-//        int monthNumber = allSaleList.size();
-//        if (monthNumber > 0) {
-//            int number = allSaleList.get(monthNumber - 1).getSaleData().size();
-//            list.addAll(allSaleList.get(monthNumber - 1).getSaleData());
-//            if (monthNumber > 1) {
-//                for (int i = monthNumber - 2; i >= 0; i--) {
-//                    for (int j = 0; j < number; j++) {
-//                        SaleData saleData = list.get(j);
-//                        int before = saleData.getAllCurrentCup() == 0 ? saleData.getCurrentCup() : saleData.getAllCurrentCup();
-//                        saleData.setAllCurrentCup(before + allSaleList.get(i).getSaleData().get(j).getCurrentCup());
-//                    }
-//                }
-//            }
-//            getmMvpView().requestData(list);
-//        }
-//    }
+    public void requestData() {
+        DataOfModel model = DataOfModel.getInstance();
+        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
+        ArrayList<SaleData> list = new ArrayList<>();
+        int monthNumber = allSaleList.size();
+        if (monthNumber > 0) {
+            int number = allSaleList.get(monthNumber - 1).getSaleData().size();
+            list.addAll(allSaleList.get(monthNumber - 1).getSaleData());
+            if (monthNumber > 1) {
+                for (int i = monthNumber - 2; i >= 0; i--) {
+                    for (int j = 0; j < number; j++) {
+                        SaleData saleData = list.get(j);
+                        int before = saleData.getAllCurrentCup() == 0 ? saleData.getCurrentCup() : saleData.getAllCurrentCup();
+                        saleData.setAllCurrentCup(before + allSaleList.get(i).getSaleData().get(j).getCurrentCup());
+                    }
+                }
+            }
+            getmMvpView().requestData(list);
+        }
+    }
 
 
     public void requestData2() {
@@ -75,7 +75,7 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
                     new TypeToken<List<HouseholdFamily>>() {}.getType());
 
             if (householdFamilies != null && !householdFamilies.isEmpty()){
-                getmMvpView().requestData(householdFamilies);
+                getmMvpView().requestData2(householdFamilies);
             }
         } catch (JsonSyntaxException e) {
             e.printStackTrace();

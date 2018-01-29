@@ -12,5 +12,7 @@ import java.util.ArrayList;
 
 public interface IDataView extends IMvpBaseView {
 
-    void requestData(ArrayList<HouseholdFamily> list);
+    void requestData2(ArrayList<HouseholdFamily> list);
+
+    void requestData(ArrayList<SaleData> list);
 }

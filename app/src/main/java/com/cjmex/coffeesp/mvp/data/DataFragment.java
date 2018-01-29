@@ -55,7 +55,9 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
             mView = inflater.inflate(R.layout.fragment_data, container, false);
             unbinder = ButterKnife.bind(this, mView);
             init();
-            dataPresenter.requestData2();
+//            dataPresenter.requestData2()
+
+            dataPresenter.requestData();
         }
         return mView;
     }
@@ -122,9 +124,9 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     }
 
     @Override
-    public void requestData(ArrayList<HouseholdFamily> list) {
-        if (recycler.getAdapter() == null) {
-            recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
+    public void requestData2(ArrayList<HouseholdFamily> list) {
+//        if (recycler.getAdapter() == null) {
+//            recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
 //            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
 //                @Override
 //                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
@@ -137,6 +139,26 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
 //                    return false;
 //                }
 //            });
+//        }
+//        recycler.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void requestData(ArrayList<SaleData> list) {
+        if (recycler.getAdapter() == null) {
+            recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
+            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    AlertDialog alertDialog = new AlertDialog(getContext());
+                    alertDialog.show();
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
         }
         recycler.getAdapter().notifyDataSetChanged();
     }
