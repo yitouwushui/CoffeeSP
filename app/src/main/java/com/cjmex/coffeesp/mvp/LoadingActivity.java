@@ -1,8 +1,10 @@
 package com.cjmex.coffeesp.mvp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -10,11 +12,14 @@ import android.widget.TextView;
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.uitls.LogUtils;
 
-import java.util.Calendar;
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author yitouwushui
+ */
 public class LoadingActivity extends AppCompatActivity {
 
     int loadingTime = 3;
@@ -57,7 +62,7 @@ public class LoadingActivity extends AppCompatActivity {
 
     }
 
-    Handler handler = new Handler();
+    MyHandler handler = new MyHandler(this);
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -72,9 +77,26 @@ public class LoadingActivity extends AppCompatActivity {
         }
     };
 
+    private static class MyHandler extends Handler {
+        WeakReference<Activity> mActivityReference;
+
+        MyHandler(Activity activity) {
+            mActivityReference = new WeakReference<Activity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final Activity activity = mActivityReference.get();
+            if (activity != null) {
+//                mImageView.setImageBitmap(mBitmap);
+            }
+        }
+    }
+
     @Override
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
+//        handler.removeCallbacks(null);
         super.onDestroy();
         LogUtils.i("生命周期", "LoadingActivity onDestroy");
 
