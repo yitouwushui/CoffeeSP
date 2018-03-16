@@ -22,7 +22,7 @@
             android:layout_marginBottom="6dp"
             android:layout_marginTop="12dp"
             android:maxLines="4"
-            android:text="机器对应农户信息"
+            android:text="机器对应咖农信息"
             android:textColor="@android:color/white"
             android:textSize="36px" />
     </LinearLayout>

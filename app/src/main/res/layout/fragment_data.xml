@@ -20,7 +20,7 @@
         android:layout_height="48dp"
         android:background="@color/colorTitle"
         android:gravity="center"
-        android:text="农户相关信息"
+        android:text="咖农相关信息"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 

@@ -9,7 +9,6 @@ import com.cjmex.coffeesp.mvp.DataOfModel;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpPresenter;
 import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.uitls.RetrofitUtil;
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +26,6 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
 
 
     private Context mContext;
-    private Gson gson;
 
     public DataPresenter() {
         LogUtils.i("DataPresenter:", "new Object");
@@ -72,9 +70,10 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
         try {
             ArrayList<HouseholdFamily> householdFamilies = RetrofitUtil.getInstance().getGson().fromJson(
                     json,
-                    new TypeToken<List<HouseholdFamily>>() {}.getType());
+                    new TypeToken<List<HouseholdFamily>>() {
+                    }.getType());
 
-            if (householdFamilies != null && !householdFamilies.isEmpty()){
+            if (householdFamilies != null && !householdFamilies.isEmpty()) {
                 getmMvpView().requestData2(householdFamilies);
             }
         } catch (JsonSyntaxException e) {

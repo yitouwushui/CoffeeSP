@@ -34,10 +34,10 @@ import butterknife.Unbinder;
 public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> implements IDataView {
 
     View mView;
-    @BindView(R.id.recycler)
-    RecyclerView recycler;
     Unbinder unbinder;
     DataPresenter dataPresenter;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
 
     private OnFragmentInteractionListener mListener;
 

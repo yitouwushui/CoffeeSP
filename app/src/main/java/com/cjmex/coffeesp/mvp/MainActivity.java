@@ -1,5 +1,6 @@
 package com.cjmex.coffeesp.mvp;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.mvp.about.AboutFragment;
 import com.cjmex.coffeesp.mvp.data.DataFragment;
+import com.cjmex.coffeesp.mvp.scan.ScanFragment;
 import com.cjmex.coffeesp.mvp.totalsales.TotalSalesFragment;
 import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.uitls.UIUtils;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String FIRST = "FIRST";
     private static final String SECOND = "SECOND";
     private static final String THIRD = "THIRD";
+    private static final String FOUR = "FOUR";
 
     @BindView(R.id.frameLayout)
     FrameLayout frameLayout;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     TotalSalesFragment totalSalesFragment;
     DataFragment dataFragment;
     AboutFragment aboutFragment;
+    ScanFragment scanFragment;
     Fragment currentFragment;
     int currentPosition;
     @BindView(R.id.img_bar1)
@@ -68,13 +73,19 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgBar3;
     @BindView(R.id.tv_bar3)
     TextView tvBar3;
+    @BindView(R.id.img_bar4)
+    ImageView imgBar4;
+    @BindView(R.id.tv_bar4)
+    TextView tvBar4;
     // 导航栏颜色
     int colorB, colorG;
     //图标
-    Drawable barLineB, barLineG, barDataG, barDataB, barAboutB, barAboutG;
+    Drawable barLineB, barLineG, barDataG, barDataB, barAboutB, barAboutG, barScanB, barScanG;
     public static final int dataSize = 6;
     public static int currentMonth = 0;
     public static int startMonth = 0;
+    private long mExitTime = 0L;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,20 +115,39 @@ public class MainActivity extends AppCompatActivity {
         barDataG = resources.getDrawable(R.drawable.bar_data_g);
         barAboutB = resources.getDrawable(R.drawable.bar_about_b);
         barAboutG = resources.getDrawable(R.drawable.bar_about_g);
+        barScanB = resources.getDrawable(R.drawable.bar_qr_code_b);
+        barScanG = resources.getDrawable(R.drawable.bar_qr_code_g);
         totalSalesFragment = new TotalSalesFragment();
         dataFragment = new DataFragment();
         aboutFragment = new AboutFragment();
+        scanFragment = new ScanFragment();
         fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.frameLayout, totalSalesFragment, FIRST);
         fragmentTransaction.add(R.id.frameLayout, dataFragment, SECOND);
         fragmentTransaction.add(R.id.frameLayout, aboutFragment, THIRD);
+        fragmentTransaction.add(R.id.frameLayout, scanFragment, FOUR);
         currentPosition = 1;
         imgBar1.setImageDrawable(barLineB);
         tvBar1.setTextColor(colorB);
         fragmentTransaction.show(currentFragment = totalSalesFragment);
         fragmentTransaction.hide(dataFragment);
+        fragmentTransaction.hide(scanFragment);
         fragmentTransaction.hide(aboutFragment).commit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                UIUtils.showToast(this, "再按一次退出" + getResources().getString(R.string.app_name));
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -133,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         LogUtils.i("生命周期", "MainActivity onDestroy");
     }
 
-    @OnClick({R.id.bt_home, R.id.bt_data, R.id.bt_about})
+    @OnClick({R.id.bt_home, R.id.bt_data, R.id.bt_about, R.id.bt_bar4})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_home:
@@ -144,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bt_about:
                 showFragment(aboutFragment, 3);
+                break;
+            case R.id.bt_bar4:
+                showFragment(scanFragment, 4);
+//                Intent intent = new Intent(this, ScanActivity.class);
+//                startActivity(intent);
                 break;
             default:
         }
@@ -169,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
                     imgBar3.setImageDrawable(barAboutG);
                     tvBar3.setTextColor(colorG);
                     break;
+                case 4:
+                    imgBar4.setImageDrawable(barScanG);
+                    tvBar4.setTextColor(colorG);
+                    break;
                 default:
             }
             switch (position) {
@@ -183,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
                 case 3:
                     imgBar3.setImageDrawable(barAboutB);
                     tvBar3.setTextColor(colorB);
+                    break;
+                case 4:
+                    imgBar4.setImageDrawable(barScanB);
+                    tvBar4.setTextColor(colorB);
                     break;
                 default:
             }
