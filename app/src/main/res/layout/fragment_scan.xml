@@ -10,7 +10,7 @@
         android:layout_height="48dp"
         android:background="@color/colorTitle"
         android:gravity="center"
-        android:text="机器、咖啡豆扫码"
+        android:text="咖啡机和咖啡豆扫码"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
         <!--生成二维码-->
         <EditText
             android:id="@+id/et_erweima_content"
@@ -47,6 +48,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
@@ -68,7 +76,7 @@
             <Button
                 android:id="@+id/btn_scanning"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:text="扫咖啡豆码"
                 android:textSize="17sp" />
@@ -91,7 +99,7 @@
             <Button
                 android:id="@+id/btn_scanning2"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="扫机器码"
                 android:textSize="17sp" />

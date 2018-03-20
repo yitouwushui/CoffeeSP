@@ -106,6 +106,7 @@ public class ScanFragment extends AbstractMvpFragment<IScanView, ScanPresenter> 
                         //如果已经授权就直接跳转到二维码扫面界面
                         Intent intent = new Intent(getContext(),
                                 CaptureActivity.class);
+                        intent.putExtra("requestCode", requestCode);
                         startActivityForResult(intent, requestCode);
                         Toast.makeText(getContext(), "扫一扫", Toast.LENGTH_SHORT).show();
                     } else { // Oups permission denied
@@ -173,7 +174,6 @@ public class ScanFragment extends AbstractMvpFragment<IScanView, ScanPresenter> 
 
     @Override
     public void onDetach() {
-        mUnbinder.unbind();
         super.onDetach();
     }
 

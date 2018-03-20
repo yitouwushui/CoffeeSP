@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class LoadingActivity extends AppCompatActivity {
 //        if (UIUtils.getVersionCode(this) > versionCode) {
 
         handler.post(runnable);
-
+//        FileProvider
 //        getPreferences(MODE_PRIVATE).edit().putInt(App.VERSION_CODE, UIUtils.getVersionCode(this)).commit();
 //        } else {
 //            startMain();

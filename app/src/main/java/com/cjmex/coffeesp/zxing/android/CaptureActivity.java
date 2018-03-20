@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.cjmex.coffeesp.R;
+import com.cjmex.coffeesp.mvp.scan.ScanFragment;
 import com.cjmex.coffeesp.zxing.camera.CameraManager;
 import com.cjmex.coffeesp.zxing.view.ViewfinderView;
 import com.google.zxing.BarcodeFormat;
@@ -67,6 +68,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         viewfinderView.drawViewfinder();
     }
 
+    int requestCode = 0;
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+
     /**
      * OnCreate中初始化一些辅助类，如InactivityTimer（休眠）、Beep（声音）以及AmbientLight（闪光灯）
      */
@@ -77,7 +86,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.capture);
-
+        Intent intent = getIntent();
+        requestCode = intent.getIntExtra("requestCode", 0);
         hasSurface = false;
 
         inactivityTimer = new InactivityTimer(this);
@@ -103,6 +113,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         cameraManager = new CameraManager(getApplication());
 
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+        if (requestCode == 1) {
+            viewfinderView.setHint(getResources().getString(
+                    R.string.viewfinderview_status_text1_code1));
+        } else {
+            viewfinderView.setHint(getResources().getString(
+                    R.string.viewfinderview_status_text1_code2));
+        }
         viewfinderView.setCameraManager(cameraManager);
 
         handler = null;

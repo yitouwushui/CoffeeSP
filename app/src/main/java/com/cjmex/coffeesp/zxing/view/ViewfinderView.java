@@ -69,6 +69,8 @@ public final class ViewfinderView extends View {
     private final int SCAN_VELOCITY = 10;
     // 扫描线
     Bitmap scanLight;
+    //提示文本框
+    String statusText1;
 
     public ViewfinderView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -236,8 +238,10 @@ public final class ViewfinderView extends View {
      */
     private void drawStatusText(Canvas canvas, Rect frame, int width) {
 
-        String statusText1 = getResources().getString(
-                R.string.viewfinderview_status_text1);
+        if (statusText1 == null || "".equals(statusText1)) {
+            statusText1 = getResources().getString(
+                    R.string.viewfinderview_status_text1);
+        }
         String statusText2 = getResources().getString(
                 R.string.viewfinderview_status_text2);
         int statusTextSize = 45;
@@ -309,4 +313,10 @@ public final class ViewfinderView extends View {
         }
     }
 
+    public void setHint(String text) {
+        if (text == null) {
+            return;
+        }
+        statusText1 = text;
+    }
 }
