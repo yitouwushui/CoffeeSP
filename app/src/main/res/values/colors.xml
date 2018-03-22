@@ -9,6 +9,7 @@
     <color name="colorBlack">#272636</color>
     <color name="colorBlack333333">#333333</color>
     <color name="main_background">#F0F0F0</color>
+    <color name="colorWhite">#F0F0F0</color>
 
     <color name="color_bar_gray">#959595</color>
     <color name="color_bar_blue">#4178d3</color>

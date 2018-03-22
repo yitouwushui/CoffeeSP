@@ -20,60 +20,60 @@
         android:layout_height="48dp"
         android:background="@color/colorTitle"
         android:gravity="center"
-        android:text="咖农相关信息"
+        android:text="咖啡销售数据"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:orientation="horizontal">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="32dp"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/textView"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="编号"-->
-            <!--android:textColor="@color/colorBlack333333"-->
-            <!--android:textColorLink="@color/colorAccent"-->
-            <!--android:textSize="11sp" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView"-->
+    <!--android:layout_width="40dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="编号"-->
+    <!--android:textColor="@color/colorBlack333333"-->
+    <!--android:textColorLink="@color/colorAccent"-->
+    <!--android:textSize="11sp" />-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/textView2"-->
-            <!--android:layout_width="60dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="户主名字"-->
-            <!--android:textColor="@color/colorBlack333333"-->
-            <!--android:textColorLink="@color/colorAccent"-->
-            <!--android:textSize="11sp" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView2"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="户主名字"-->
+    <!--android:textColor="@color/colorBlack333333"-->
+    <!--android:textColorLink="@color/colorAccent"-->
+    <!--android:textSize="11sp" />-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/textView3"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_weight="4"-->
-            <!--android:gravity="center"-->
-            <!--android:text="户主身份证"-->
-            <!--android:textColor="@color/colorBlack333333"-->
-            <!--android:textColorLink="@color/colorAccent"-->
-            <!--android:textSize="11sp" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_weight="4"-->
+    <!--android:gravity="center"-->
+    <!--android:text="户主身份证"-->
+    <!--android:textColor="@color/colorBlack333333"-->
+    <!--android:textColorLink="@color/colorAccent"-->
+    <!--android:textSize="11sp" />-->
 
-        <!--<TextView-->
-            <!--android:id="@+id/textView4"-->
-            <!--android:layout_width="60dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:gravity="center"-->
-            <!--android:text="家庭人口"-->
-            <!--android:textColor="@color/colorBlack333333"-->
-            <!--android:textColorLink="@color/colorAccent"-->
-            <!--android:textSize="11sp" />-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView4"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="家庭人口"-->
+    <!--android:textColor="@color/colorBlack333333"-->
+    <!--android:textColorLink="@color/colorAccent"-->
+    <!--android:textSize="11sp" />-->
     <!--</LinearLayout>-->
 
     <LinearLayout
@@ -136,8 +136,8 @@
         android:background="@color/main_background" />
 
     <View
-        android:background="@color/main_background"
         android:layout_width="match_parent"
-        android:layout_height="8dp"/>
+        android:layout_height="8dp"
+        android:background="@color/main_background" />
 
 </LinearLayout>

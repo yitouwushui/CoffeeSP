@@ -1,5 +1,6 @@
 package com.cjmex.coffeesp.mvp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -16,12 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cjmex.coffeesp.R;
+import com.cjmex.coffeesp.bean.Account;
 import com.cjmex.coffeesp.mvp.about.AboutFragment;
 import com.cjmex.coffeesp.mvp.data.DataFragment;
 import com.cjmex.coffeesp.mvp.scan.ScanFragment;
 import com.cjmex.coffeesp.mvp.totalsales.TotalSalesFragment;
 import com.cjmex.coffeesp.uitls.LogUtils;
-import com.cjmex.coffeesp.uitls.UIUtils;
+import com.cjmex.coffeesp.uitls.ToastUtils;
 
 import java.util.Calendar;
 
@@ -85,19 +87,20 @@ public class MainActivity extends AppCompatActivity {
     public static int currentMonth = 0;
     public static int startMonth = 0;
     private long mExitTime = 0L;
+    private Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = this;
 
         Calendar calendar = Calendar.getInstance();
         currentMonth = calendar.get(Calendar.MONTH) + 1;
         calendar.add(Calendar.MONTH, 1 - dataSize);
         startMonth = calendar.get(Calendar.MONTH) + 1;
         DataOfModel.init(calendar.get(Calendar.YEAR), startMonth, dataSize);
-
         LogUtils.i("生命周期", "MainActivity onCreate");
 
         init();
@@ -140,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                UIUtils.showToast(this, "再按一次退出" + getResources().getString(R.string.app_name));
+                ToastUtils.showToast(this, "再按一次退出" + getResources().getString(R.string.app_name));
                 mExitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -170,15 +173,21 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(totalSalesFragment, 1);
                 break;
             case R.id.bt_data:
+                if ("".equals(Account.getInstance().getToken())) {
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    return;
+                }
                 showFragment(dataFragment, 2);
                 break;
             case R.id.bt_about:
                 showFragment(aboutFragment, 3);
                 break;
             case R.id.bt_bar4:
+                if ("".equals(Account.getInstance().getToken())) {
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                    return;
+                }
                 showFragment(scanFragment, 4);
-//                Intent intent = new Intent(this, ScanActivity.class);
-//                startActivity(intent);
                 break;
             default:
         }
@@ -238,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 currentFragment = showFragment;
                 ft.show(showFragment).commit();
             } else {
-                UIUtils.showToast(this, "显示错误....");
+                ToastUtils.showToast(this, "显示错误....");
             }
         }
 
