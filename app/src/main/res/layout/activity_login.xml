@@ -69,9 +69,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
-        android:text="确定"
         android:textColor="@color/colorWhite"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorMainBlue"
+        android:text="确定"
         android:textSize="18sp" />
 </LinearLayout>

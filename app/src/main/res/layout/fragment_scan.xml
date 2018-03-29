@@ -55,56 +55,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_scanning_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:hint="咖啡豆码："
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_scanning_result2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:hint="机器码："
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+        <!--扫描二维码-->
+        <Button
+            android:id="@+id/btn_scanning"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/colorMainBlue"
+            android:text="扫咖啡豆码"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/tv_scanning_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="扫描结果："
-                android:textSize="15sp" />
-            <!--扫描二维码-->
-            <Button
-                android:id="@+id/btn_scanning"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="扫咖啡豆码"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <!--扫描二维码-->
+        <Button
+            android:id="@+id/btn_scanning2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_scanning_result2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="扫描结果："
-                android:textSize="15sp" />
-            <!--扫描二维码-->
-            <Button
-                android:id="@+id/btn_scanning2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="扫机器码"
-                android:textSize="17sp" />
-        </LinearLayout>
-
+            android:background="@color/colorMainBlue"
+            android:text="扫机器码"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp" />
 
     </LinearLayout>
 

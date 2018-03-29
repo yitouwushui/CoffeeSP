@@ -129,14 +129,14 @@ public class ScanFragment extends AbstractMvpFragment<IScanView, ScanPresenter> 
                     if (data != null) {
                         String content = data.getStringExtra(DECODED_CONTENT_KEY);
                         Bitmap bitmap = data.getParcelableExtra(DECODED_BITMAP_KEY);
-                        tvScanningResult.setText("扫描结果： " + content);
+                        tvScanningResult.setText("咖啡豆码： " + content);
                     }
                     break;
                 case SCANNING_CODE_2:
                     if (data != null) {
                         String content = data.getStringExtra(DECODED_CONTENT_KEY);
                         Bitmap bitmap = data.getParcelableExtra(DECODED_BITMAP_KEY);
-                        tvScanningResult2.setText("扫描结果： " + content);
+                        tvScanningResult2.setText("机器码： " + content);
                     }
                     break;
                 default:
