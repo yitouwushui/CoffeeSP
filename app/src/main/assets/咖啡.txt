@@ -1,0 +1,16 @@
+曹强 2018/3/29 15:06:00
+http://localhost:8282/coffeeSP-web/getOrderList?machineCode=E630I5XK&pageNum=1
+获取机器码
+曹强 2018/3/29 15:07:23
+获取机器列表：
+http://localhost:8282/coffeeSP-web/getMachineList?firmId=1&pageNum=1
+{"list":[{"batchId":1,"code":"1234","createDate":1521043199000,"firm":"天平","firmId":1,"id":1,"position":"xxxx","positionX":1.0000,"positionY":1.0000,"status":"1"},{"batchId":11,"code":"H220I300","createDate":1522139050000,"firm":"天平","firmId":1,"id":14,"position":"楼外楼","positionX":76.2300,"positionY":57.4600,"status":"1"},{"batchId":11,"code":"H230I7N6","createDate":1522139050000,"firm":"天平","firmId":1,"id":15,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"9521V210A","createDate":1522139050000,"firm":"天平","firmId":1,"id":16,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"G530I0F0","createDate":1522139050000,"firm":"天平","firmId":1,"id":17,"position":"小魔仙小黑屋","positionX":123.2300,"positionY":13.3400,"status":"1"},{"batchId":11,"code":"E630I5XK","createDate":1522139050000,"firm":"天平","firmId":1,"id":18,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"E630I3OM","createDate":1522139050000,"firm":"天平","firmId":1,"id":19,"positionX":0.0000,"positionY":0.0000,"status":"1"}],"pageSize":"6","responseCode":"0","responseMsg":"查询数据成功!","total":7}
+
+根据机器编号获取订单信息
+http://localhost:8282/coffeeSP-web/getOrderList?machineCode=E630I5XK&pageNum=1
+{"list":[{"createDate":1522140351000,"currency":"RMB","depositRate":0.0000,"firm":"天平","firmId":1,"id":2,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312160044288240","orgAmount":0.01,"payDate":1520841659000,"payType":"1","realAmount":0.01},{"createDate":1522140406000,"currency":"RMB","depositRate":0.0000,"firm":"天平","firmId":1,"id":3,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312164844782241","orgAmount":0.01,"payDate":1520844551000,"payType":"1","realAmount":0.01},{"createDate":1522140434000,"currency":"RMB","depositRate":0.0000,"firm":"天平","firmId":1,"id":4,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312165215695242","orgAmount":0.01,"payDate":1520844749000,"payType":"1","realAmount":0.01}],"pageSize":"6","responseCode":"0","responseMsg":"查询数据成功!","total":3}
+曹强 2018/3/29 15:12:39
+
+获取扶贫总额
+http://localhost:8282/coffeeSP-web/getTotalSaleCup
+{"responseCode":"0","responseMsg":"查询数据成功!","totalSaleCup":4,"totalSaleMoney":8}3
