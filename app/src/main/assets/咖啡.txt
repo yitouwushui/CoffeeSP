@@ -1,16 +1,16 @@
-²ÜÇ¿ 2018/3/29 15:06:00
+æ›¹å¼º 2018/3/29 15:06:00
 http://localhost:8282/coffeeSP-web/getOrderList?machineCode=E630I5XK&pageNum=1
-»ñÈ¡»úÆ÷Âë
-²ÜÇ¿ 2018/3/29 15:07:23
-»ñÈ¡»úÆ÷ÁĞ±í£º
+è·å–æœºå™¨ç 
+æ›¹å¼º 2018/3/29 15:07:23
+è·å–æœºå™¨åˆ—è¡¨ï¼š
 http://localhost:8282/coffeeSP-web/getMachineList?firmId=1&pageNum=1
-{"list":[{"batchId":1,"code":"1234","createDate":1521043199000,"firm":"ÌìÆ½","firmId":1,"id":1,"position":"xxxx","positionX":1.0000,"positionY":1.0000,"status":"1"},{"batchId":11,"code":"H220I300","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":14,"position":"Â¥ÍâÂ¥","positionX":76.2300,"positionY":57.4600,"status":"1"},{"batchId":11,"code":"H230I7N6","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":15,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"9521V210A","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":16,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"G530I0F0","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":17,"position":"Ğ¡Ä§ÏÉĞ¡ºÚÎİ","positionX":123.2300,"positionY":13.3400,"status":"1"},{"batchId":11,"code":"E630I5XK","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":18,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"E630I3OM","createDate":1522139050000,"firm":"ÌìÆ½","firmId":1,"id":19,"positionX":0.0000,"positionY":0.0000,"status":"1"}],"pageSize":"6","responseCode":"0","responseMsg":"²éÑ¯Êı¾İ³É¹¦!","total":7}
+{"list":[{"batchId":1,"code":"1234","createDate":1521043199000,"firm":"å¤©å¹³","firmId":1,"id":1,"position":"xxxx","positionX":1.0000,"positionY":1.0000,"status":"1"},{"batchId":11,"code":"H220I300","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":14,"position":"æ¥¼å¤–æ¥¼","positionX":76.2300,"positionY":57.4600,"status":"1"},{"batchId":11,"code":"H230I7N6","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":15,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"9521V210A","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":16,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"G530I0F0","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":17,"position":"å°é­”ä»™å°é»‘å±‹","positionX":123.2300,"positionY":13.3400,"status":"1"},{"batchId":11,"code":"E630I5XK","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":18,"positionX":0.0000,"positionY":0.0000,"status":"1"},{"batchId":11,"code":"E630I3OM","createDate":1522139050000,"firm":"å¤©å¹³","firmId":1,"id":19,"positionX":0.0000,"positionY":0.0000,"status":"1"}],"pageSize":"6","responseCode":"0","responseMsg":"æŸ¥è¯¢æ•°æ®æˆåŠŸ!","total":7}
 
-¸ù¾İ»úÆ÷±àºÅ»ñÈ¡¶©µ¥ĞÅÏ¢
+æ ¹æ®æœºå™¨ç¼–å·è·å–è®¢å•ä¿¡æ¯
 http://localhost:8282/coffeeSP-web/getOrderList?machineCode=E630I5XK&pageNum=1
-{"list":[{"createDate":1522140351000,"currency":"RMB","depositRate":0.0000,"firm":"ÌìÆ½","firmId":1,"id":2,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312160044288240","orgAmount":0.01,"payDate":1520841659000,"payType":"1","realAmount":0.01},{"createDate":1522140406000,"currency":"RMB","depositRate":0.0000,"firm":"ÌìÆ½","firmId":1,"id":3,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312164844782241","orgAmount":0.01,"payDate":1520844551000,"payType":"1","realAmount":0.01},{"createDate":1522140434000,"currency":"RMB","depositRate":0.0000,"firm":"ÌìÆ½","firmId":1,"id":4,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312165215695242","orgAmount":0.01,"payDate":1520844749000,"payType":"1","realAmount":0.01}],"pageSize":"6","responseCode":"0","responseMsg":"²éÑ¯Êı¾İ³É¹¦!","total":3}
-²ÜÇ¿ 2018/3/29 15:12:39
+{"list":[{"createDate":1522140351000,"currency":"RMB","depositRate":0.0000,"firm":"å¤©å¹³","firmId":1,"id":2,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312160044288240","orgAmount":0.01,"payDate":1520841659000,"payType":"1","realAmount":0.01},{"createDate":1522140406000,"currency":"RMB","depositRate":0.0000,"firm":"å¤©å¹³","firmId":1,"id":3,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312164844782241","orgAmount":0.01,"payDate":1520844551000,"payType":"1","realAmount":0.01},{"createDate":1522140434000,"currency":"RMB","depositRate":0.0000,"firm":"å¤©å¹³","firmId":1,"id":4,"machineCode":"E630I5XK","orderDetailCount":1,"orderNo":"20180312165215695242","orgAmount":0.01,"payDate":1520844749000,"payType":"1","realAmount":0.01}],"pageSize":"6","responseCode":"0","responseMsg":"æŸ¥è¯¢æ•°æ®æˆåŠŸ!","total":3}
+æ›¹å¼º 2018/3/29 15:12:39
 
-»ñÈ¡·öÆ¶×Ü¶î
+è·å–æ‰¶è´«æ€»é¢
 http://localhost:8282/coffeeSP-web/getTotalSaleCup
-{"responseCode":"0","responseMsg":"²éÑ¯Êı¾İ³É¹¦!","totalSaleCup":4,"totalSaleMoney":8}3
+{"responseCode":"0","responseMsg":"æŸ¥è¯¢æ•°æ®æˆåŠŸ!","totalSaleCup":4,"totalSaleMoney":8}3

@@ -1,9 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.cjmex.coffeesp.mvp.data.DataFragment">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -12,7 +11,7 @@
         android:layout_height="48dp"
         android:background="@color/colorTitle"
         android:gravity="center"
-        android:text="扶贫咖啡机销售数据"
+        android:text="订单信息"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
@@ -23,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="32dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center_vertical"
@@ -31,34 +30,15 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="总销售杯数:  "
+            android:layout_height="wrap_content"
+            android:text="机器编号: "
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_cup"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="2"
-            android:textColor="@color/colorGreen"
-            android:textSize="15sp" />
-
-        <TextView
+            android:id="@+id/tv_machine_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="总扶贫金额:  "
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/holo_red_light"
+            android:text=""
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -74,47 +54,43 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="机器编号"
+            android:text="订单编号"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="产商"
+            android:text="扶贫金额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="所处位置"
+            android:text="订单金额"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
-            android:text="投放批次"
+            android:text="订单时间"
             android:textColor="@color/colorBlack333333"
             android:textColorLink="@color/colorAccent"
             android:textSize="13sp" />

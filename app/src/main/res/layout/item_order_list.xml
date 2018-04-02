@@ -3,18 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:gravity="center_vertical"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="8dp"
     android:background="@android:color/white"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
 
-
-    <!--<android.support.v7.widget.AppCompatImageView-->
-        <!--android:id="@+id/img_icon"-->
-        <!--android:layout_width="32dp"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--app:srcCompat="@mipmap/ic_launcher" />-->
 
     <TextView
         android:id="@+id/tv_name"
@@ -22,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:gravity="center"
-        android:text="tv_name" />
+        android:text="tv_name"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -48,5 +42,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="tv_content" />
+        android:text="tv_content"
+        android:textSize="11sp" />
 </LinearLayout>

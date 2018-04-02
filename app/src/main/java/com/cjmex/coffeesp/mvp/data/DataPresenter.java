@@ -1,14 +1,16 @@
 package com.cjmex.coffeesp.mvp.data;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
-import com.cjmex.coffeesp.bean.AllSale;
 import com.cjmex.coffeesp.bean.HouseholdFamily;
-import com.cjmex.coffeesp.bean.SaleData;
-import com.cjmex.coffeesp.mvp.DataOfModel;
+import com.cjmex.coffeesp.bean.MachineGson;
+import com.cjmex.coffeesp.bean.TotalSaleCupGson;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpPresenter;
+import com.cjmex.coffeesp.uitls.Const;
 import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.uitls.RetrofitUtil;
+import com.cjmex.coffeesp.uitls.ToastUtils;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
@@ -17,6 +19,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * @author ding
  * @date 2017/12/13
@@ -24,10 +30,11 @@ import java.util.List;
 
 public class DataPresenter extends AbstractMvpPresenter<IDataView> {
 
-
+    private final DateRequestMode mDateRequestMode;
     private Context mContext;
 
     public DataPresenter() {
+        mDateRequestMode = new DateRequestMode();
         LogUtils.i("DataPresenter:", "new Object");
     }
 
@@ -43,25 +50,67 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
         super.detachMvpView();
     }
 
-    public void requestData() {
-        DataOfModel model = DataOfModel.getInstance();
-        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
-        ArrayList<SaleData> list = new ArrayList<>();
-        int monthNumber = allSaleList.size();
-        if (monthNumber > 0) {
-            int number = allSaleList.get(monthNumber - 1).getSaleData().size();
-            list.addAll(allSaleList.get(monthNumber - 1).getSaleData());
-            if (monthNumber > 1) {
-                for (int i = monthNumber - 2; i >= 0; i--) {
-                    for (int j = 0; j < number; j++) {
-                        SaleData saleData = list.get(j);
-                        int before = saleData.getAllCurrentCup() == 0 ? saleData.getCurrentCup() : saleData.getAllCurrentCup();
-                        saleData.setAllCurrentCup(before + allSaleList.get(i).getSaleData().get(j).getCurrentCup());
-                    }
+    public void requestMachineData() {
+//        DataOfModel model = DataOfModel.getInstance();
+//        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
+//        ArrayList<SaleData> list = new ArrayList<>();
+//        int monthNumber = allSaleList.size();
+//        if (monthNumber > 0) {
+//            int number = allSaleList.get(monthNumber - 1).getSaleData().size();
+//            list.addAll(allSaleList.get(monthNumber - 1).getSaleData());
+//            if (monthNumber > 1) {
+//                for (int i = monthNumber - 2; i >= 0; i--) {
+//                    for (int j = 0; j < number; j++) {
+//                        SaleData saleData = list.get(j);
+//                        int before = saleData.getAllCurrentCup() == 0 ? saleData.getCurrentCup() : saleData.getAllCurrentCup();
+//                        saleData.setAllCurrentCup(before + allSaleList.get(i).getSaleData().get(j).getCurrentCup());
+//                    }
+//                }
+//            }
+//            getmMvpView().requestMachineData(list);
+//        }
+        mDateRequestMode.requestMachine(1, 1, new Callback<MachineGson>() {
+            @Override
+            public void onResponse(@NonNull Call<MachineGson> call, @NonNull Response<MachineGson> response) {
+                MachineGson machineGson = response.body();
+                if (machineGson == null){
+                    return;
                 }
+                if (machineGson.getResponseCode().equals(Const.RESPONSE_CODE)) {
+                    getmMvpView().requestMachineData(machineGson.getList());
+                    return;
+                }
+                ToastUtils.showToast(machineGson.getResponseMsg());
             }
-            getmMvpView().requestData(list);
-        }
+
+            @Override
+            public void onFailure(@NonNull Call<MachineGson> call, @NonNull Throwable t) {
+                ToastUtils.showToast(t.toString());
+            }
+        });
+    }
+
+
+    public void requestTotalSaleCup() {
+        mDateRequestMode.getTotalSaleCup(new Callback<TotalSaleCupGson>() {
+            @Override
+            public void onResponse(@NonNull Call<TotalSaleCupGson> call, @NonNull Response<TotalSaleCupGson> response) {
+                TotalSaleCupGson totalSaleCupGson = response.body();
+                if (totalSaleCupGson == null){
+                    return;
+                }
+                if (totalSaleCupGson.getResponseCode().equals(Const.RESPONSE_CODE)) {
+                    getmMvpView().requestTotalSaleData(totalSaleCupGson);
+                    return;
+                }
+                ToastUtils.showToast(totalSaleCupGson.getResponseMsg());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TotalSaleCupGson> call, @NonNull Throwable t) {
+                ToastUtils.showToast(t.toString());
+            }
+        });
     }
 
 
@@ -110,19 +159,4 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
         return "读取错误，请检查文件名";
     }
 
-
-//        int data = TimeUtils.getCurrentDateOfMonth();
-//        for (int i = 1; i < 31; i++) {
-//            SaleData saleData = new SaleData();
-//
-//            if (i < 10) {
-//                saleData.setName("YKFM000" + i);
-//            } else {
-//                saleData.setName("YKFM00" + i);
-//            }
-//            saleData.setCurrentCup((int) (Math.random() * 30 * data));
-//            saleData.setSaleMoney((  (int) (Math.random() * 30 * 30) + (int) (Math.random() * 30 * 30) ) * saleData.getPriceOfOneCup() + saleData.getSubsidyMoney());
-//            saleData.setSubsidyMoney(saleData.getSaleMoney()/10);
-//            list.add(saleData);
-//        }
 }

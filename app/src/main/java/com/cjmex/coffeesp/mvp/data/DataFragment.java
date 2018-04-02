@@ -1,9 +1,9 @@
 package com.cjmex.coffeesp.mvp.data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 import com.cjmex.coffeesp.R;
 import com.cjmex.coffeesp.bean.HouseholdFamily;
-import com.cjmex.coffeesp.bean.SaleData;
+import com.cjmex.coffeesp.bean.Machine;
+import com.cjmex.coffeesp.bean.TotalSaleCupGson;
 import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
-import com.cjmex.coffeesp.view.AlertDialog;
+import com.cjmex.coffeesp.mvp.data.order.OrderListActivity;
+import com.cjmex.coffeesp.uitls.ToastUtils;
 import com.cjmex.coffeesp.view.absrecyclerview.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +29,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * @author ding
  */
 public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> implements IDataView {
 
@@ -38,6 +38,10 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     DataPresenter dataPresenter;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.tv_cup)
+    TextView tvCup;
+    @BindView(R.id.tv_money)
+    TextView tvMoney;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,9 +59,10 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
             mView = inflater.inflate(R.layout.fragment_data, container, false);
             unbinder = ButterKnife.bind(this, mView);
             init();
-//            dataPresenter.requestData2()
 
-            dataPresenter.requestData();
+            dataPresenter.requestMachineData();
+            dataPresenter.requestTotalSaleCup();
+
         }
         return mView;
     }
@@ -114,44 +119,27 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
         super.onDestroyView();
     }
 
-    @OnClick({R.id.recycler})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.recycler:
-                break;
-            default:
-        }
-    }
-
     @Override
     public void requestData2(ArrayList<HouseholdFamily> list) {
-//        if (recycler.getAdapter() == null) {
-//            recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
-//            ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    AlertDialog alertDialog = new AlertDialog(getContext());
-//                    alertDialog.show();
-//                }
-//
-//                @Override
-//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    return false;
-//                }
-//            });
-//        }
-//        recycler.getAdapter().notifyDataSetChanged();
+
     }
 
     @Override
-    public void requestData(ArrayList<SaleData> list) {
-        if (recycler.getAdapter() == null) {
+    public void requestMachineData(List<Machine> list) {
+        if (list == null || list.isEmpty()) {
+            ToastUtils.showToast("没有更多数据了");
+            return;
+        }
+        DataAdapter dataAdapter = (DataAdapter) recycler.getAdapter();
+        if (dataAdapter == null) {
             recycler.setAdapter(new DataAdapter(getContext(), R.layout.item_home_member_list, list));
             ((DataAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    AlertDialog alertDialog = new AlertDialog(getContext());
-                    alertDialog.show();
+                    Intent intent = new Intent(getContext(), OrderListActivity.class);
+                    Machine machine = ((DataAdapter) recycler.getAdapter()).getDatas().get(position);
+                    intent.putExtra("machineCode", machine.getCode());
+                    getActivity().startActivity(intent);
                 }
 
                 @Override
@@ -159,9 +147,31 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
                     return false;
                 }
             });
+        } else {
+            dataAdapter.addmDatas(list);
         }
         recycler.getAdapter().notifyDataSetChanged();
     }
+
+    @Override
+    public void requestTotalSaleData(TotalSaleCupGson totalSaleCupGson) {
+        tvCup.setText(totalSaleCupGson.getTotalSaleCup() + "杯");
+        tvMoney.setText(totalSaleCupGson.getTotalSaleMoney() + "元");
+    }
+
+    @OnClick({R.id.tv_cup, R.id.tv_money, R.id.recycler})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_cup:
+                break;
+            case R.id.tv_money:
+                break;
+            case R.id.recycler:
+                break;
+            default:
+        }
+    }
+
 
     /**
      *
@@ -169,5 +179,6 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 }

@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
 
     private Context context;
-    private TotalSalesRequestMode mTotalSalesRequestMode;
+    private final TotalSalesRequestMode mTotalSalesRequestMode;
 
     public TotalSalesPresenter() {
         this.mTotalSalesRequestMode = new TotalSalesRequestMode();
@@ -42,6 +42,7 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
     @Override
     public void detachMvpView() {
         context = null;
+        mTotalSalesRequestMode.interruptHttp();
         super.detachMvpView();
     }
 
