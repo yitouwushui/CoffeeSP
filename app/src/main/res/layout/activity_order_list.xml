@@ -15,97 +15,110 @@
         android:textColor="@android:color/white"
         android:textSize="17sp" />
 
-    <View
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh"
+        class="com.scwang.smartrefresh.layout.SmartRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/main_background" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="机器编号: "
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_machine_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="15sp" />
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@color/main_background" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="80dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:gravity="center"
-            android:text="订单编号"
-            android:textColor="@color/colorBlack333333"
-            android:textColorLink="@color/colorAccent"
-            android:textSize="13sp" />
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/main_background" />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:gravity="center"
-            android:text="扶贫金额"
-            android:textColor="@color/colorBlack333333"
-            android:textColorLink="@color/colorAccent"
-            android:textSize="13sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="订单金额"
-            android:textColor="@color/colorBlack333333"
-            android:textColorLink="@color/colorAccent"
-            android:textSize="13sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="机器编号: "
+                    android:textSize="15sp" />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:gravity="center"
-            android:text="订单时间"
-            android:textColor="@color/colorBlack333333"
-            android:textColorLink="@color/colorAccent"
-            android:textSize="13sp" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_machine_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="15sp" />
+            </LinearLayout>
 
-    <view
-        android:id="@+id/recycler"
-        class="android.support.v7.widget.RecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_background" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@color/main_background" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/main_background" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="订单编号"
+                    android:textColor="@color/colorBlack333333"
+                    android:textColorLink="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="扶贫金额"
+                    android:textColor="@color/colorBlack333333"
+                    android:textColorLink="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:gravity="center"
+                    android:text="订单金额"
+                    android:textColor="@color/colorBlack333333"
+                    android:textColorLink="@color/colorAccent"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:text="订单时间"
+                    android:textColor="@color/colorBlack333333"
+                    android:textColorLink="@color/colorAccent"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <view
+                android:id="@+id/recycler"
+                class="android.support.v7.widget.RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/main_background" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/main_background" />
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

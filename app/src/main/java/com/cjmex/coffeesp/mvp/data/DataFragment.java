@@ -19,6 +19,7 @@ import com.cjmex.coffeesp.mvp.base.AbstractMvpFragment;
 import com.cjmex.coffeesp.mvp.data.order.OrderListActivity;
 import com.cjmex.coffeesp.uitls.ToastUtils;
 import com.cjmex.coffeesp.view.absrecyclerview.MultiItemTypeAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,9 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
     TextView tvCup;
     @BindView(R.id.tv_money)
     TextView tvMoney;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
+    int indexPage = 1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -60,7 +64,7 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
             unbinder = ButterKnife.bind(this, mView);
             init();
 
-            dataPresenter.requestMachineData();
+            dataPresenter.requestMachineData(indexPage);
             dataPresenter.requestTotalSaleCup();
 
         }
@@ -72,6 +76,20 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
                 getContext(), LinearLayoutManager.VERTICAL, false
         ));
 
+        refresh.setOnRefreshListener(refreshlayout -> {
+            indexPage = 1;
+            loadData(indexPage);
+        });
+        refresh.setOnLoadmoreListener(refreshlayout -> {
+            indexPage++;
+            loadData(indexPage);
+        });
+
+    }
+
+    private void loadData(int indexPage) {
+
+        dataPresenter.requestMachineData(indexPage);
     }
 
     @Override
@@ -111,7 +129,8 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
 
     @Override
     public void resultFailure(String result) {
-
+        refresh.finishLoadmore();
+        refresh.finishRefresh();
     }
 
     @Override
@@ -126,6 +145,8 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
 
     @Override
     public void requestMachineData(List<Machine> list) {
+        refresh.finishLoadmore();
+        refresh.finishRefresh();
         if (list == null || list.isEmpty()) {
             ToastUtils.showToast("没有更多数据了");
             return;
@@ -148,7 +169,11 @@ public class DataFragment extends AbstractMvpFragment<IDataView, DataPresenter> 
                 }
             });
         } else {
-            dataAdapter.addmDatas(list);
+            if (indexPage == 1) {
+                dataAdapter.setmDatas(list);
+            } else {
+                dataAdapter.addmDatas(list);
+            }
         }
         recycler.getAdapter().notifyDataSetChanged();
     }

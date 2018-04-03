@@ -14,6 +14,7 @@ import com.cjmex.coffeesp.mvp.base.AbstractMvpActivity;
 import com.cjmex.coffeesp.uitls.ToastUtils;
 import com.cjmex.coffeesp.view.AlertDialog;
 import com.cjmex.coffeesp.view.absrecyclerview.MultiItemTypeAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class OrderListActivity extends AbstractMvpActivity<IOrderListView, Order
     @BindView(R.id.recycler)
     RecyclerView recycler;
     private Context mContext;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
     String machineCode = "";
     int pageNum = 1;
 
@@ -55,6 +58,18 @@ public class OrderListActivity extends AbstractMvpActivity<IOrderListView, Order
                 mContext, LinearLayoutManager.VERTICAL, false
         ));
 
+        refresh.setOnRefreshListener(refreshlayout -> {
+            pageNum = 1;
+            loadData(pageNum);
+        });
+        refresh.setOnLoadmoreListener(refreshlayout -> {
+            pageNum++;
+            loadData(pageNum);
+        });
+    }
+
+    private void loadData(int pageNum) {
+        orderListPresenter.requestOrderList(machineCode, pageNum);
     }
 
     @Override
@@ -64,10 +79,14 @@ public class OrderListActivity extends AbstractMvpActivity<IOrderListView, Order
 
     @Override
     public void resultFailure(String result) {
+        refresh.finishLoadmore();
+        refresh.finishRefresh();
     }
 
     @Override
     public void returnOrderListData(List<OrderList> list) {
+        refresh.finishLoadmore();
+        refresh.finishRefresh();
         if (list == null || list.isEmpty()) {
             ToastUtils.showToast("没有更多数据了");
             return;
@@ -75,20 +94,24 @@ public class OrderListActivity extends AbstractMvpActivity<IOrderListView, Order
         OrderListAdapter dataAdapter = (OrderListAdapter) recycler.getAdapter();
         if (dataAdapter == null) {
             recycler.setAdapter(new OrderListAdapter(mContext, R.layout.item_order_list, list));
-            ((OrderListAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    AlertDialog alertDialog = new AlertDialog(mContext);
-                    alertDialog.show();
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
+//            ((OrderListAdapter) recycler.getAdapter()).setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+////                    AlertDialog alertDialog = new AlertDialog(mContext);
+////                    alertDialog.show();
+//                }
+//
+//                @Override
+//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    return false;
+//                }
+//            });
         } else {
-            dataAdapter.addmDatas(list);
+            if (pageNum == 1) {
+                dataAdapter.setmDatas(list);
+            } else {
+                dataAdapter.addmDatas(list);
+            }
         }
         recycler.getAdapter().notifyDataSetChanged();
     }

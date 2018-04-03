@@ -50,7 +50,7 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
         super.detachMvpView();
     }
 
-    public void requestMachineData() {
+    public void requestMachineData(int indexPage) {
 //        DataOfModel model = DataOfModel.getInstance();
 //        ArrayList<AllSale> allSaleList = (ArrayList<AllSale>) model.getAllSaleList();
 //        ArrayList<SaleData> list = new ArrayList<>();
@@ -69,11 +69,12 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
 //            }
 //            getmMvpView().requestMachineData(list);
 //        }
-        mDateRequestMode.requestMachine(1, 1, new Callback<MachineGson>() {
+        mDateRequestMode.requestMachine(1, indexPage, new Callback<MachineGson>() {
             @Override
             public void onResponse(@NonNull Call<MachineGson> call, @NonNull Response<MachineGson> response) {
                 MachineGson machineGson = response.body();
-                if (machineGson == null){
+                if (machineGson == null) {
+                    getmMvpView().resultFailure(Const.RESPONSE_RESULT_FAILURE);
                     return;
                 }
                 if (machineGson.getResponseCode().equals(Const.RESPONSE_CODE)) {
@@ -81,11 +82,13 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
                     return;
                 }
                 ToastUtils.showToast(machineGson.getResponseMsg());
+                getmMvpView().resultFailure(Const.RESPONSE_RESULT_FAILURE);
             }
 
             @Override
             public void onFailure(@NonNull Call<MachineGson> call, @NonNull Throwable t) {
                 ToastUtils.showToast(t.toString());
+                getmMvpView().resultFailure(Const.RESPONSE_RESULT_FAILURE);
             }
         });
     }
@@ -96,7 +99,7 @@ public class DataPresenter extends AbstractMvpPresenter<IDataView> {
             @Override
             public void onResponse(@NonNull Call<TotalSaleCupGson> call, @NonNull Response<TotalSaleCupGson> response) {
                 TotalSaleCupGson totalSaleCupGson = response.body();
-                if (totalSaleCupGson == null){
+                if (totalSaleCupGson == null) {
                     return;
                 }
                 if (totalSaleCupGson.getResponseCode().equals(Const.RESPONSE_CODE)) {

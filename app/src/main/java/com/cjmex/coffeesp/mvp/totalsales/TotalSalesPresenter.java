@@ -30,7 +30,6 @@ public class TotalSalesPresenter extends AbstractMvpPresenter<ITotalSalesView> {
 
     public TotalSalesPresenter() {
         this.mTotalSalesRequestMode = new TotalSalesRequestMode();
-        LogUtils.i("TotalSalesPresenter:", "new Object");
     }
 
     @Override

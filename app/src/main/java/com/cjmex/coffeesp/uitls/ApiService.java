@@ -1,7 +1,7 @@
 package com.cjmex.coffeesp.uitls;
 
 
-import com.cjmex.coffeesp.bean.Machine;
+import com.cjmex.coffeesp.bean.BaseGson;
 import com.cjmex.coffeesp.bean.MachineGson;
 import com.cjmex.coffeesp.bean.OrderListGson;
 import com.cjmex.coffeesp.bean.Plate;
@@ -10,7 +10,10 @@ import com.cjmex.coffeesp.bean.TotalSaleCupGson;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -56,4 +59,15 @@ public interface ApiService {
      */
     @GET("coffeeSP-web/getTotalSaleCup?")
     Call<TotalSaleCupGson> getTotalSaleCup();
+
+    /**
+     * 获取扶贫总额
+     *
+     * @param loginName
+     * @param password
+     * @return
+     */
+    @POST("coffeeSP-web/login?")
+    @FormUrlEncoded
+    Call<BaseGson> goLogin(@Field("loginName") String loginName, @Field("password") String password);
 }

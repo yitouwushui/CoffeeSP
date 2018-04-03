@@ -33,6 +33,10 @@ public interface Const {
 
     public static final String RESPONSE_CODE = "0";
 
+    public static final String LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
+
+    public static final String RESPONSE_RESULT_FAILURE = "RESPONSE_RESULT_FAILURE";
+
 //    String label = "注：A,B,C,D依次为 云南宝山地区,普洱市,临沧市,文山市,数字指月份";
 
     public static final int[] BAR_COLORS = {

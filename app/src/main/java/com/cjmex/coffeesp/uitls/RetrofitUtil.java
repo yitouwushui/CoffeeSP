@@ -56,6 +56,10 @@ public class RetrofitUtil {
         mApiService = mRetrofit.create(ApiService.class);
     }
 
+    public ApiService getApiService() {
+        return mApiService;
+    }
+
     /**
      * 双重校验单例
      *

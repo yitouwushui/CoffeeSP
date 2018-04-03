@@ -22,6 +22,7 @@ import com.cjmex.coffeesp.mvp.about.AboutFragment;
 import com.cjmex.coffeesp.mvp.data.DataFragment;
 import com.cjmex.coffeesp.mvp.scan.ScanFragment;
 import com.cjmex.coffeesp.mvp.totalsales.TotalSalesFragment;
+import com.cjmex.coffeesp.uitls.Const;
 import com.cjmex.coffeesp.uitls.LogUtils;
 import com.cjmex.coffeesp.uitls.ToastUtils;
 
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(totalSalesFragment, 1);
                 break;
             case R.id.bt_data:
-                if ("".equals(Account.getInstance().getToken())) {
+                if (!Const.LOGIN_SUCCESSFUL.equals(Account.getInstance().getToken())) {
                     startActivity(new Intent(mContext, LoginActivity.class));
                     return;
                 }
@@ -183,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(aboutFragment, 3);
                 break;
             case R.id.bt_bar4:
-                if ("".equals(Account.getInstance().getToken())) {
+                if (!Const.LOGIN_SUCCESSFUL.equals(Account.getInstance().getToken())) {
                     startActivity(new Intent(mContext, LoginActivity.class));
                     return;
                 }
