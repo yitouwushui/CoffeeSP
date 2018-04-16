@@ -31,7 +31,8 @@ public class RetrofitUtil {
 
     private volatile static RetrofitUtil mInstance;
 
-    public static final String BASE_URL = "http://192.168.2.206:8080/";//测试地址
+//    public static final String BASE_URL = "http://192.168.2.206:8080/";//测试地址
+    public static final String BASE_URL = "http://116.228.18.10:88/";//测试地址
 
     /**
      * 构造方法

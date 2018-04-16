@@ -51,7 +51,6 @@ public class OrderListActivity extends AbstractMvpActivity<IOrderListView, Order
     private void init() {
         Intent intent = getIntent();
         machineCode = intent.getStringExtra("machineCode");
-        machineCode = "E630I5XK";
         tvMachineCode.setText(machineCode);
         orderListPresenter.requestOrderList(machineCode, pageNum);
         recycler.setLayoutManager(new LinearLayoutManager(

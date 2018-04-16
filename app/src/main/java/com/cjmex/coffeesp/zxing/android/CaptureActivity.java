@@ -31,6 +31,7 @@ import java.util.Map;
 /**
  * 这个activity打开相机，在后台线程做常规的扫描；它绘制了一个结果view来帮助正确地显示条形码，在扫描的时候显示反馈信息，
  * 然后在扫描成功的时候覆盖扫描结果
+ * @author ding
  */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
@@ -46,7 +47,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private Map<DecodeHintType, ?> decodeHints;
     private String characterSet;
     // 电量控制
-    private InactivityTimer inactivityTimer;
+    private InactivityTimer inactivityTimer ;
     // 声音、震动控制
     private BeepManager beepManager;
 

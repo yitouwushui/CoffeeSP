@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         unbinder.unbind();
         super.onDestroy();
-        LogUtils.i("生命周期", "MainActivity onDestroy");
     }
 
     @OnClick({R.id.bt_home, R.id.bt_data, R.id.bt_about, R.id.bt_bar4})
